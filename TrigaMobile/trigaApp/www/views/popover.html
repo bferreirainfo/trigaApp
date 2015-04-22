@@ -1,0 +1,16 @@
+<div style="left:-10px;right:0;bottom:0;position:absolute;z-index: 9999999;width: 300px;height:500px;" ng-style="{top : dto.top}" >
+	<ion-popover-view style="width:100%;background: #f1f1f1;height:80%;" >
+		<ion-content has-bouncing="true" class="padding" >
+			<h2 style="text-align: center;" >Notificações</h2>
+	  		<div ng-repeat="notification in unsawNotficiations">
+  					<div class="card">
+		 			 <div class="item item-text-wrap">
+						<h2>{{notification.title}}</h2>
+		    			{{notification.message}}
+		  				<p>Recebido em: {{notification.date}}</p>
+		 			</div>
+				</div>
+	  	 	</div>
+     	</ion-content>
+   </ion-popover-view>
+</div>

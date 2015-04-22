@@ -1,0 +1,501 @@
+
+html,body {
+  height: 100%;
+  margin: 0 !important;
+  padding:0 ;
+  background-color: #E5E5E5;
+  font-family: Roboto,sans-serif !important;
+  font-stretch: condensed !important;
+  transform: translate3d(0em,0em,0em);
+}
+
+.fade-bar {
+  height: 20px;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  opacity: 0;
+  background-color: #000;
+}
+
+
+.colunaHorario{
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+	overflow: hidden;
+	margin:1px;
+	border-radius: 2px;
+	padding: 3px;
+}
+.appHeader{
+	font-size: 18px;
+	height:64px !important;
+	border: none !important;
+	background-image: none !important;
+	padding-top: 12px !important;
+}
+.shadowed{
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.title{
+	position: initial !important;
+	font-weight: bolder;
+	font-family: Roboto light !important;
+	font-size: 20px !important;
+	padding: 6px;
+}
+.redBackground{
+	background: red;
+}
+.greenBackground{
+	background: rgb(31, 187, 31);
+}
+.yellowBackground{
+	background: orange;
+}
+.red{
+	color: red;
+}
+.green{
+	color: rgb(31, 187, 31);
+}
+.yellow{
+	color: orange;
+}
+.circle {
+  display: block;
+  width: 55px;
+  height: 55px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-border-radius: 99em;
+  -moz-border-radius: 99em;
+  border-radius: 130em;
+  /* box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);   */
+}
+.pace {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+
+  -webkit-pointer-events: none;
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+
+  width: 120px;
+  height: 25px;
+  border: 2px solid #29d;
+  background-color: #fff;
+}
+
+.pace .pace-progress {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+
+  -webkit-transition: width 1s ease-in-out 1s linear;
+  -moz-transition: width 1s ease-in-out 1s linear;
+  -ms-transition: width 1s ease-in-out 1s linear;
+  -o-transition: width 1s ease-in-out 1s linear;
+  transition: width 1s ease-in-out 1s linear;
+
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+
+  max-width: 110px;
+  display: block;
+  position: relative;
+  left: 3px;
+  top: 3px;
+  height: 15px;
+  font-size: 12px;
+  background: #29d;
+  color: #29d;
+  line-height: 60px;
+  font-weight: bold;
+  font-family:  Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+.materia{
+	font-weight: bold;
+}
+.horario{
+	white-space: nowrap;
+}
+.centralized{
+	display: block; margin: 0 auto;
+}
+.smallBakIcon{
+		background-color:white;
+		color:white;
+		height:28px;
+		width:82px;
+		background-image: url("/img/poliBackIcon.png");
+}
+
+.noPM{
+	margin: 0px !important;
+	padding: 0px !important;
+}
+.noBorder{
+	border: none !important;
+}
+.slider {
+	height: 100%;
+	text-align: center;
+}
+
+.scroll{
+	height: 100%;
+}
+
+.color-red{
+	background-color: red;
+	width: 100%;
+	height: 100%;
+}
+.color-yellow{
+	background: yellow;	
+	height: 100%;
+}
+
+.bar .title{
+	position: initial;	
+}
+
+.loading-container .loading {
+	padding: 10px !important;
+	border-radius: 5px !important;
+	background-color: white !important;
+	color: black !important;
+	text-align: center !important;
+	text-overflow: ellipsis !important;
+	font-size: 20px !important;
+}
+
+
+.backgroundInstitution1{
+/* 	Curso Grau Tecnico */
+/* 	background: rgb(41, 111, 57) !important ; */
+/* 	color:white !important; */
+/* 	Curso Profissional Especial */
+/* 	background: #002A46 !important; */
+	/* color:white !important; */
+/* 	Curso Alquimia Especial */
+ 	/* background: #1D9D92 !important; */
+	color:black !important;
+	background-color: rgb(52, 127, 127) !important;
+/* 	Faculdade Funeso */
+/* 	background: rgb(16, 101, 183) !important; */
+/* 	color:rgb(16, 101, 183) !important; */
+/* 	Faculdade Universo */
+	/* background: rgb(16, 101, 183) !important;
+	color:rgb(16, 101, 183) !important; */
+}
+.backgroundInstitution2{
+/* 	Curso Grau Tecnico */
+/* 	background: rgb(146, 172, 101) !important; */
+/* 	color:white !important; */
+/* 	Curso Profissional Tecnico */
+/* 	background: #0E639A !important; */
+/* 	color:white !important; */
+/* /* 	Curso Alquimia */
+	background: white !important;
+	color:black !important;
+/* 	Faculdade  Funeso */
+/* 	background: rgb(16, 101, 183) !important; */
+/* 	color:#fff !important; */
+/* 	Faculdade  Universo */
+	/* background: rgb(16, 101, 183) !important;
+	color:#fff !important;  */
+}
+.colorInstituition{
+/* 	Curso Grau Tecnico */
+/* 	color:white !important; */
+/* 	Curso Profissional Tecnico */
+/* 	color:white !important; */
+/* 	Curso Alquimia */
+ 	color: #1D9D92 !important;
+/* 	Faculdade  Funeso */
+	/* color: #fff !important; */
+}
+.tabbed-slidebox .tsb-icons .scroll a.active{
+	border-bottom: 6px solid rgb(15, 71, 66) !important;
+}
+.tabbed-slidebox .tsb-icons a.active{
+	color: rgb(15, 71, 66) !important;
+}
+
+.title{
+	/* 	Faculdade  Funeso */
+	/* color:#fff; */
+	/* 	Triga */
+	color: rgb(255, 195, 8);
+}
+
+.alquimiaLogo{
+	width: 150px;
+	height: 100px;
+	position: relative;
+	display: block; margin: 0 auto;
+	top:14px;
+}
+
+.funesoLogo{
+	width:340px;height:150px;position:relative;top:-20px;left:-40px;
+}
+.universoLogo{
+	width:320px;height:140px;position:relative;top:-10px;left:-20px;
+}
+.bar .title.title-left{
+	position: relative !important;top: -6px;left: 0 !important;right: 0 !important;
+}
+
+.marginaldo{
+	margin:10px !important;
+}
+
+.title {
+    font-family: 'Roboto Thin';
+	font-size: 80px;
+}
+
+.blackSmallCaps {
+    font-family: "Roboto Black";
+	font-variant: small-caps;
+    font-size: 40px;
+     
+}
+
+.italic {
+	font-style: italic;
+	font-size: 16px;
+}
+
+.bold {
+	font-weight: bold;
+	font-size: 26px;
+}
+
+.boldCondensed {
+    font-weight: bold !important;
+	font-stretch: condensed !important;
+    font-size: 15px !important;
+}
+
+.medium {
+	font-weight: medium;
+	font-size: 21px;
+}
+
+.light {
+    font-family: "Roboto Light";
+    font-size: 40px;
+}
+
+.boldItalic {
+	font-weight: bold;
+	font-style: italic;
+	font-size: 24px;
+}
+
+.regular {
+	font-size: 14px;
+}
+
+
+md-divider.md-default-theme {
+	border-top-color: rgba(0, 0, 0, 0.44);
+}
+
+.item-icon-left .icon, .item-icon-right .icon{
+	font-size: 23px !important;
+}
+
+.bar .button.button-icon .icon:before, .bar .button.button-icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before {
+	font-size: 28px !important;
+	line-height: 32px !important;
+	color: rgba(0, 0, 0, 0.79);
+	padding: 6px 0px 8px 12px !important;
+}
+
+.loginCenter{
+	width: 200px;
+	height: 200px;
+	position: absolute;
+	top:0;    
+	bottom: 0;
+    left: 0;
+    right: 0;
+   	margin-top: 7% !important;
+	margin: auto;
+}
+
+.subHeaderAnimationCondition{
+	top: 70px !important;
+	display:none !important;
+}
+
+.contentAnimation{
+	top: 140px !important;
+}
+.contentAnimation1{
+	top: 100px !important;
+}
+
+.itemMenu{
+	text-align:left !important;
+	text-transform: none !important;
+	color:white !important;
+	border-radius: 0px !important;
+	border-bottom: 2px solid !important;
+	padding: 10px 5px 10px 30px !important;
+	transform: translate3d(0em,0em,0em);
+}
+.itemIcon{
+	left: 0px !important;
+}
+.noRadius{
+	border-radius: 0px !important;
+}
+.tabbedItemW{
+	/* width: 33% !important; */
+}
+.itemMenu{
+	border:none !important;
+	text-align:left !important;
+	text-transform: none !important;
+	padding:15px 15px 15px 53px !important;
+	color: rgb(250, 211, 91) !important;
+	position: relative !important;
+	border-bottom: 1px solid rgb(51, 51, 51) !important ;
+}
+.itemMenu >.icon{
+	color: white !important;
+}
+.spinner-android{
+  stroke: rgb(255, 195, 8) !important;
+  padding:10px 10px 2px 10px;
+  position: relative;
+  top: -3px;
+  transform: translate3d(0em,0em,0em);
+  index:999;
+  
+}
+.spinnerContent > svg{
+	width: 75px !important;
+	height: 60px !important;
+}
+.slideUp{
+	position:relative !important;
+	transform: translate3d(0em,0em,0em);
+}
+.slideUp1{
+	position:relative !important;
+	transform: translate3d(0em,0em,0em);
+}
+.slideUpAnimation{
+	top: 10px !important;
+	transform: translate3d(0em,0em,0em);
+}
+
+.menu-content{
+	box-shadow: -5px 10px 39px rgba(0, 0, 0, 0.78), 14px 20px 8px rgba(0, 0, 0, 0.77) !important;
+	transform: translate3d(0em,0em,0em);
+}
+
+.spinner-container {
+    -webkit-animation: rotate 2s linear infinite;
+            animation: rotate 2s linear infinite;
+}
+
+.spinner-container .path {
+    stroke-dasharray: 1,150; /* 1%, 101% circumference */
+    stroke-dashoffset: 0;
+    stroke: rgb(243, 208, 91);
+    stroke-linecap: round;
+    -webkit-animation: dash 1.5s ease-in-out infinite;
+            animation: dash 1.5s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+@-webkit-keyframes rotate{
+    100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1,150;  /* 1%, 101% circumference */
+       stroke-dashoffset: 0;
+   }
+   50% {
+       stroke-dasharray: 90,150; /* 70%, 101% circumference */
+       stroke-dashoffset: -35;   /* 25% circumference */
+   }
+   100% {
+       stroke-dasharray: 90,150; /* 70%, 101% circumference */
+       stroke-dashoffset: -124;  /* -99% circumference */
+    }
+}
+@-webkit-keyframes dash {
+    0% {
+        stroke-dasharray: 1,150;  /* 1%, 101% circumference */
+       stroke-dashoffset: 0;
+   }
+   50% {
+       stroke-dasharray: 90,150; /* 70%, 101% circumference */
+       stroke-dashoffset: -35;   /* 25% circumference */
+   }
+   100% {
+       stroke-dasharray: 90,150; /* 70%, 101% circumference */
+       stroke-dashoffset: -124;  /* -99% circumference */
+    }
+}
+.spinner-container {
+z-index: 2;
+-webkit-animation: rotate 2s linear infinite;
+animation: rotate 2s linear infinite;
+}
+.reprovedSymbol{
+	color: red;
+	padding: 13px 0px 0px 19px;
+}
+.aprovedSymbol{
+	color: green;
+	padding: 13px 0px 0px 13px;
+}
+.aprovedFinalSymbol{
+	color: green;
+	padding: 13px 0px 0px 19px;
+}
+.waitingSymbol{
+	padding: 13px 0px 0px 16px;
+}
+.loading-container .loading{
+	background: none !important;
+}

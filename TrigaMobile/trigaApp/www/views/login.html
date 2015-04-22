@@ -1,0 +1,71 @@
+ <ion-view title="'Login'" left-buttons="leftButtons" right-buttons="rightButtons">
+   <ion-content has-header="true" style="background:rgb(11, 101, 102);">
+										  
+	<div class="loginCenter " style="width: 300px;">
+		<div class="centralized" style="margin-bottom: 0px;text-align: center;font-size: 12px;" >
+			<div class="centralized" style="background-size: 145px 145px !important;width: 145px;height:145px;background: url(img/triga3.jpg) no-repeat center center;"></div>
+		</div>
+		<form ng-submit="signIn(user)">
+			<div style="padding: 20px;">
+		   	<md-input-group style="padding-bottom: 0px;"  flex disabled>
+		        <label  style="font-size: 20px !important;"><i class="icon ion-podium" style="margin-right: 10px;"></i>Instituição</label>
+				<md-input style="font-size: 18px !important;width:100%;color: rgb(250, 189, 16);border-bottom:1px solid black;" ng-model="user.institution "></md-input>
+	       </md-input-group>
+		   	<md-input-group style="padding-bottom: 0px;width:100%;"  flex >
+		        <label  style="font-size: 20px !important;"><i class="icon ion-at" style="margin-right: 10px;"></i>Email</label>
+		        <!-- colocar conditional autofocus -->
+				<md-input  type="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" style="font-size: 18px !important;width:100%;color: rgb(250, 189, 16);border-bottom:1px solid black;" ng-model="user.username"></md-input>
+	       </md-input-group>
+		   	<md-input-group ng-if="user.institution != 'ALQUIMIA'" style="padding-bottom: 0px;width:100%;"  flex >
+		        <label  style="font-size: 20px !important;"><i class="icon ion-at" style="margin-right: 10px;"></i>Senha</label>
+		        <!-- colocar conditional autofocus -->
+				<md-input type="password"  style="font-size: 18px !important;width:100%;color: rgb(250, 189, 16);border-bottom:1px solid black;" ng-model="user.password"></md-input>
+	       </md-input-group>
+<!-- 	   	<md-input-group  flex style="padding-bottom: 0px;"> -->
+<!-- 	   		<label  style="font-size: 20px !important;"><i class="icon ion-ios-person" style="margin-right: 10px;"></i>Usuario</label> -->
+<!-- 			<md-input input style="font-size: 18px !important;"ng-model="user.username"></md-input> -->
+<!--        </md-input-group> -->
+<!-- 	   	<md-input-group flex > -->
+<!-- 	   		<label  style="font-size: 20px !important;"><i class="icon ion-ios-person" style="margin-right: 10px;"></i>Senha</label> -->
+<!-- 			<md-input input style="font-size: 18px !important;" ng-model="user.password"></md-input> -->
+<!--        </md-input-group> -->
+			<br/>
+	  		<md-button type="submit" class="md-raised button-block" style="background: #FABD10;height:50px;">LOG IN</md-button>
+		</div>
+		</form>
+     <div>
+<!--      Angular material 1.71 -->
+<!--      	<md-input-container style="padding-bottom: 0px;"  flex > -->
+<!-- 	        <label  style="font-size: 18px !important;"><i class="icon ion-ios-person" style="margin-right: 10px;"></i>Institution</label> -->
+<!-- 	        <input  ng-model="user.institution"> -->
+<!--        </md-input-container> -->
+<!-- 	   	<md-input-container  flex style="padding-bottom: 0px;"> -->
+<!-- 	        <label  style="font-size: 18px !important;"><i class="icon ion-ios-person" style="margin-right: 10px;"></i>User Name</label> -->
+<!-- 	        <input  ng-model="user.username"> -->
+<!--        </md-input-container> -->
+<!-- 	   	<md-input-container flex > -->
+<!-- 	        <label style="font-size: 18px !important;" ><i class="icon ion-locked" style="margin-right: 10px;"></i>Password</label> -->
+<!-- 	        <input  ng-model="password"> -->
+<!--        </md-input-container> -->
+<!-- 		 <md-button class="md-raised button-block" ng-click="signIn(user)" style="background: #FABD10;">LOG IN</md-button> -->
+<!--        <p  class="text-center" > -->
+<!--        		<div ng-show="show"> -->
+<!-- 	        	<div  style="float:left"> Registering at google...</div> -->
+<!-- 	        	<div style="margin-left:10px;">{{regiGCM ? regiGCM.pass ? "Ok" : 'Fail  ' : 'waiting'}}</div> -->
+	        	
+<!-- 	        	<div ng-show="regiGCM.pass" style="float:left"> Registering at TrigaServer...</div> -->
+<!-- 	        	<div ng-show="regiGCM.pass" style="margin-left:10px;">{{deviceId ? deviceId.pass ? "Ok" : "Fail" : 'waiting'}}</div> -->
+	        	
+<!-- 	        	<div ng-show="deviceId.pass" style="float:left"> Waiting notification...</div> -->
+<!-- 	        	<div ng-show="deviceId.pass" style="margin-left:10px;">{{deviceId ? deviceId.pass ? "Ok" : "Fail" : 'waiting'}}</div> -->
+	        	
+<!-- 	        	<div  ng-show="testResult" style="float:left"> Teste result...</div> -->
+<!-- 	        	<div  ng-show="testResult" style="margin-left:10px;">{{testResult.pass ? 'ok' : 'Cause ' + testResult.content}}</div> -->
+<!--        		</div> -->
+<!--        </p> -->
+<!--          <a href="#/forgot-password">Para fins de teste por favor digite seu nome no campo username, depois pressione logar</a> -->
+       
+     </div>
+					</div>					  
+   </ion-content>
+ </ion-view>

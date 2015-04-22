@@ -1,0 +1,92 @@
+.tabbed-slidebox .slider {
+    height: 100%;
+}
+.tabbed-slidebox.btm .slider {
+    margin-bottom: -50px;
+}
+.tabbed-slidebox .slider-slides {
+    width: 100%;
+}
+
+.tabbed-slidebox .slider-slide {
+    padding-top: 0px;
+    color: #000;
+    text-align: center;
+    font-weight: 300;
+    background-color: #f1f1f1;
+}
+
+.tabbed-slidebox .tsb-icons {
+    text-align: center;
+    position: relative;
+	background-color:#fff;
+	height: 58px;
+}
+
+.tabbed-slidebox .tsb-ic-wrp {
+    display: flex;
+    position: relative;
+}
+
+.tabbed-slidebox .tsb-icons a {
+    display: inline-block;
+    width: auto;
+    font-size: 3.5em;
+    color: rgba(0, 0, 0, 0.79);
+    text-transform: uppercase;
+}
+
+.tabbed-slidebox .tsb-icons a.active {
+    color: rgb(255, 195, 8) !important;
+    font-size: 3.5em;
+}
+
+.tabbed-slidebox .tabbed-slidebox {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+}
+
+/*
+.tabbed-slidebox .tsb-icons:after {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 1.4em 1.4em 1.4em;
+    border-color: transparent transparent #0398dc transparent;
+    position: absolute;
+    content: "";
+    display: block;
+    bottom: -12px;
+    left: 50%;
+    margin-left: -14px;
+}*/
+.tsb-hscroll.scroll-view{
+  	white-space: nowrap;
+	margin:0 auto;
+	overflow: none;
+ 	white-space: nowrap;
+}
+.tsb-hscroll.scroll-view .scroll-bar{
+	visibility:hidden;
+}
+.tsb-hscroll.scroll-view .scroll.onscroll{
+}
+
+.tabbed-slidebox .tsb-icons .scroll a{
+	width:auto;
+	font-size: 1.5em;
+	line-height: 1.5em;
+	text-decoration: none;
+	border-bottom: 4px solid transparent;
+	padding: 37px 15px 0px 15px;
+}
+.tabbed-slidebox .tsb-icons .scroll a.active {
+	border-bottom: 6px solid rgb(255, 195, 8) !important;
+}
+.notificationIcon{
+	font-size: 34px;
+	position: relative; 
+	left: -12px;
+	 color: black;
+}

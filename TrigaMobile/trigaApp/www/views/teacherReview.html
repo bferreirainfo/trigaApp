@@ -1,0 +1,47 @@
+<ion-view title="Avaliação dos Professores">
+	<ion-header-bar class="bar-subheader noPM" style="border: none;z-index:1;" no-tap-scroll="true"  >
+	       <tab-slide-box tab="{{dto.initialIndex}}" whenready="{{dto}}" class="noPM"  >
+			    	<div id="tsbIcons" class="tsb-icons backgroundInstitution1" style="height: 105% !important;box-shadow: 0px 0px 1px 1px rgba(40, 119, 112, 1) !important;" >
+			    		<div class="tsb-ic-wrp">
+							<ion-scroll direction="x" has-bouncing="true" class="tsb-hscroll">
+								<md-button href="javascript:;" class="boldCondensed">Didatica</md-button>
+								<md-button href="javascript:;" class="boldCondensed">Pontualidade</md-button>
+							</ion-scroll>
+						</div>
+			    	</div>
+          	</tab-slide-box>	
+	</ion-header-bar>
+	<ion-content class="noPM" style="top: 89px;z-index:0;background: #f1f1f1;" scroll="false">
+    	<a id="warning" ng-if="dto.isUpdated == false"  class="noPM" style="font-size: 24px !important;;padding:20px;display: block;margin-top:10px;" ><span class="ion-alert-circled" style="color: #D9261F;"></span>  Ultima atualização: {{dto.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}<span class="ion-help-circled" style="float: right;" ></span></a>
+       	<ion-slide-box class="centralized" style="position:relative;max-width:500px;" show-pager="false" on-slide-changed="slideHasChanged($index)" style="background: white;width:100%;" >
+            <ion-slide>
+            	<div  style="height:100%;width:100%;text-align:left;font-size: 20px;"  has-bouncing="true">
+	            	<div class="padding card" style="color:rgba(0, 0, 0, 0.73) !important;width: 95%;height: 90%;" >
+		           		<p>O que você acha da <span style="color:#9D0F0F">didática</span> do professor? </p>
+					    <md-radio-group>
+					      <md-radio-button value="Ótimo" aria-label="Label 1">Ótimo</md-radio-button>
+					      <md-radio-button value="Bom" aria-label="Label 1">Bom</md-radio-button>
+					      <md-radio-button value="Regular"> Regular </md-radio-button>
+					      <md-radio-button value="Ruim" aria-label="Label 3">Ruim</md-radio-button>
+					      <md-radio-button value="Péssimo" aria-label="Label 3">Péssimo</md-radio-button>
+					    </md-radio-group>
+		            	</div>
+               	</div>
+            </ion-slide>
+            <ion-slide>
+          	 	<div  style="height:100%;width:100%;text-align:left;font-size: 20px;"  has-bouncing="true">
+	            	<div class="padding card" style="color:rgba(0, 0, 0, 0.73) !important;width: 95%;height: 90%;" >
+		           		<p>O que você acha da <span style="color:#9D0F0F">pontualidade</span> do professor? </p>
+					    <md-radio-group>
+					      <md-radio-button value="Ótimo" aria-label="Label 1">Ótimo</md-radio-button>
+					      <md-radio-button value="Bom" aria-label="Label 1">Bom</md-radio-button>
+					      <md-radio-button value="Regular"> Regular </md-radio-button>
+					      <md-radio-button value="Ruim" aria-label="Label 3">Ruim</md-radio-button>
+					      <md-radio-button value="Péssimo" aria-label="Label 3">Péssimo</md-radio-button>
+					    </md-radio-group>
+		            	</div>
+               	</div>
+            </ion-slide>
+        </ion-slide-box>
+</ion-content>
+</ion-view>

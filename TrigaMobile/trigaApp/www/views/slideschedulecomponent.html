@@ -1,0 +1,41 @@
+<ion-slide>
+	<ion-scroll style="height:100%;"  has-bouncing="true" class="padding">
+		<ion-refresher
+			    pulling-text="Puxe para atualizar..."
+			    pulling-icon="ion-arrow-down-c"
+			    spinner="android"
+			    on-refresh="fecthMethod({param : true});">
+		</ion-refresher>
+		<div class="slideUp">
+			<div class="colunaHorario padding" style="background: white;width: 100%;" ng-repeat="horario in schedule track by horario.cadeira">
+				<div style="font-size: 18px !important;color:rgb(29, 157, 146)" class="boldCondensed" >{{horario.cadeira}}</div>
+				<div class="row" style="height: auto;padding-top:10px" >
+					<div id="hour"   style="width: 120px;" >
+						<div class="circle" style="font-size: 20px !important;background: rgb(11, 101, 102);color:white;height:80px;width:80px;padding-top: 14px;padding-left:1px;">
+						<div style="margin-bottom: 10px;">{{horario.inicio}}</div>
+						            	<div>{{horario.termino}}</div>
+						</div>
+	           		</div>
+	         		<div id="classInformation" style="text-align: left; !important;width: 55%;line-height: 25px;">
+						<div style="font-size: 15px;">{{horario.professor}}</div>
+						<div style="font-size: 14px;color:rgb(130, 128, 146)">Sala: {{horario.sala}}</div>
+					</div>
+	      			<div id="faultsInformation" style="font-size: 12px;width: 35%;color:rgb(130, 128, 146)"  >
+						<div class="row noPM">
+							<div class="noPM" style="text-align: left;width: 80%" >Professor</div>
+							<div class="noPM" style="width: 20%">{{horario.telaFaltas.length}}</div>
+						</div>
+						<div class="row noPM">
+			 				<div class=" noPM" style="text-align: left;width: 80%" >Controle Pessoal</div>
+							<div class=" noPM" style="width: 20%" >{{horario.telaFaltasControlePessoal.length}}</div>
+						</div>
+				 		<div class="row noPM">
+							<div class=" noPM" style="text-align: left;width: 80%">Limite</div>
+								<div class=" noPM" style="width: 20%">20</div>
+		       				</div>
+	  					</div>
+					</div>
+				</div>
+			</div>
+	</ion-scroll>
+</ion-slide>

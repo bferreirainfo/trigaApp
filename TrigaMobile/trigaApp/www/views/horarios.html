@@ -1,0 +1,46 @@
+<ion-view title="Horários" class="noPM" style="transform: translate3d(0em,0em,0em) !important;">
+	<!-- RIGHT BUTTONS -->
+	<ion-nav-buttons side="right" > 
+		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
+			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
+				<span ng-if="unsawNotficiationsSize > 0"  class="badge badge-assertive" style="left: 16px;top: -2px;font-size: 12px;position: absolute;">{{unsawNotficiationsSize}}</span>
+			</span>
+		</button>
+	</ion-nav-buttons>
+	<!-- SUBHEADER -->
+	<ion-header-bar id="subHeader1" class="noPM subHeaderAnimationCondition " no-tap-scroll="true" style="height:64px !important;transform: translate3d(0em,0em,0em);" >
+	       <tab-slide-box tab="{{initialSlide}}" whenready="{{dto}}" class="noPM"  >
+			    	<div id="tsbIcons" class="tsb-icons backgroundInstitution1"  >
+			    		<div class="tsb-ic-wrp backgroundInstitution1 shadowed" style="height: 64px !important;" >
+							<ion-scroll direction="x" has-bouncing="true" class="tsb-hscroll">
+								<md-button href="javascript:;" class="boldCondensed noRadius tabbedItemW " >Segunda</md-button>
+								<md-button href="javascript:;" class="boldCondensed noRadius tabbedItemW"  >Terça</md-button>
+								<md-button href="javascript:;" class="boldCondensed noRadius tabbedItemW"  >Quarta </md-button>
+								<md-button href="javascript:;" class="boldCondensed noRadius tabbedItemW"  >Quinta</md-button>
+								<md-button href="javascript:;" class="boldCondensed noRadius tabbedItemW"  >Sexta</md-button>
+								<md-button href="javascript:;" class="boldCondensed noRadius tabbedItemW"  >Sábado</md-button>
+								<md-button href="javascript:;" class="boldCondensed noRadius tabbedItemW"  >Domingo</md-button>
+							</ion-scroll>
+						</div>
+			    	</div>
+          	</tab-slide-box>	
+	</ion-header-bar>
+	<!-- CONTENT -->
+	<ion-content id="contentAnimation" class="contentAnimation noPM tabsdemoStaticTabs" style="z-index:0;transform: translate3d(0em,0em,0em);" scroll="false" >
+		<div ng-if="" style="background: #f1f1f1;width:100%;position: absolute;z-index: 11;padding:10px 10px 0px 10px">
+			<div  class="colunaHorario padding" style="background: white;width: 100%; font-size: 14px;  text-align: center;" >
+    				Ultima atualização: {{dto.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}
+   			</div>
+		</div>
+        <ion-slide-box  show-pager="false" on-slide-changed="slideHasChanged($index)" style="background: #f1f1f1;width:100%;" ng-style="{'padding-top' : dto.isUpdated == true }">
+            <slideschedulecomponent schedule='dto.scheduleGrid.segunda' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.segunda"></slideschedulecomponent>
+            <slideschedulecomponent schedule='dto.scheduleGrid.terca' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.terca"></slideschedulecomponent>
+            <slideschedulecomponent schedule='dto.scheduleGrid.quarta' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.quarta"></slideschedulecomponent>
+            <slideschedulecomponent schedule='dto.scheduleGrid.quinta' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.quinta"></slideschedulecomponent>
+            <slideschedulecomponent schedule='dto.scheduleGrid.sexta' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.sexta"></slideschedulecomponent>
+            <slideschedulecomponent schedule='dto.scheduleGrid.sabado' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.sabado"></slideschedulecomponent>
+            <slideschedulecomponent schedule='dto.scheduleGrid.domingo' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.sabado"></slideschedulecomponent>
+        </ion-slide-box>
+	</ion-content>
+	
+</ion-view>

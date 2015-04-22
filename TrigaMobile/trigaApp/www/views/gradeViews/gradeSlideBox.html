@@ -1,0 +1,55 @@
+<ion-header-bar id="subHeader" class="noPM subHeaderAnimationCondition shadowed"  no-tap-scroll="true"  style="height:64px !important;transform: translate3d(0em,0em,0em);" >
+    <tab-slide-box tab="0" whenready="{{dto}}" class="noPM"  >
+	   	<div id="tsbIcons" class="tsb-icons backgroundInstitution1 shadowed" style="height: 64px !important;transform: translate3d(0em,0em,0em);">
+	   		<div class="tsb-ic-wrp backgroundInstitution1" style="height: 64px !important;">
+				<ion-scroll  style="width:100%" direction="x" has-bouncing="true" class="tsb-hscroll">
+					<md-item ng-repeat="grade in dto.grades track by $index" on-finish-render  style="text-align:left;">
+						<md-button href="javascript:;" class="boldCondensed noRadius" ng-if="dto">{{grade.cadeira}}</md-button>
+					</md-item>
+				</ion-scroll>
+			</div>
+	   	</div>
+   	</tab-slide-box>	
+</ion-header-bar>
+<ion-content id="contentAnimation1" class="contentAnimation noPM" style="z-index:0;transform: translate3d(0em,0em,0em);" scroll="false" >
+<a id="warning" ng-if="dto.isUpdate da pra terminar h== false"  class="card" style="font-size: 16px;padding:4px;display: block;margin-top:1px;" ><span class="ion-alert-circled" style="color: #D9261F;"></span>  Ultima atualizaÃ§Ã£o: {{dto.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}<span class="ion-help-circled" style="float: right;" ></span></a>
+ 	<ion-slide-box show-pager="false" on-slide-changed="slideHasChanged($index)" style="width:100%;" >
+         <ion-slide ng-repeat="grade in dto.grades track by grade.cadeira" >
+         	<ion-scroll  style="height:100%;"  has-bouncing="true" >
+         		  <ion-refresher
+				    pulling-text="Puxe para atualizar!"
+				    pulling-icon="ion-arrow-down-c"
+				    spinner="android"
+				    on-refresh="fetch(true);">
+				  </ion-refresher>
+				  <md-content>
+				      <div class="slideUp1">
+				    <md-list>
+				      <md-item ion-item ng-repeat="nota in grade.grades track by $index" style="text-align:left;">
+				        <md-item-content>
+				        <div class="md-tile-left" style="padding: 5px;margin-right: -15px; " >
+				        <div class="circle" ng-class="{redBackground : nota.grade < 5, 
+							  				   greenBackground : nota.grade >= 7, 
+							  				   yellowBackground : nota.grade >=5 && nota.grade < 7}" style="font-size: 24px;box-shadow:none;margin: 11.5px;width: 60px;height: 60px;">
+				            	<div style="color: white;white-space: nowrap;text-align: center;padding-top: 20px;padding-left: 2px;" >{{nota.grade.toFixed(1)}}</div>
+				         </div>
+				          </div>
+				          <div class="md-tile-content">
+				            <h3  class="boldCondensed" style="font-family: 'Roboto thin' !important;color:rgb(11, 101, 102);text-transform: capitalize;font-size: 18px !important;">{{nota.cadeira}}</h3>
+				            <div style="text-transform: capitalize;color:rgb(130, 128, 146)">{{nota.date | date:'dd/MM/yyyy'}}
+				            </div>
+				          </div>
+				        </md-item-content>
+				        <md-divider md-inset style="margin-left: 100px;" ></md-divider>
+				      </md-item>
+				    </md-list>
+	  			   </md-content>
+				    	</div>
+	     </ion-scroll>
+	     </ion-slide>
+     </ion-slide-box>
+	     
+	     <br/>
+	     <br/>
+	     <br/>
+ </ion-content>

@@ -1,0 +1,26 @@
+<ion-view title="Choose institution">
+	<md-toolbar class="md-accent" style="background:rgb(11, 101, 102);">
+      <h2 class="md-toolbar-tools">
+        <span style="color:#FBBC31">Escolha sua instituição</span>
+      </h2>
+    </md-toolbar>
+	<ion-content style="padding:80px 10% 10% 10%;width:auto;">
+		 <div class="colunaHorario centralized" style="width: 260px;">
+		 	<a ng-controller="LoginCtrl" ng-click="choose('ALQUIMIA')" ui-sref="login">
+		 		<img class="centralized " src="img/AlquimiaCurso.png" style="background-size: 100% 100% !important;width: 100%;height:145px;background: url(img/triga3.jpg) no-repeat center center;"></img>
+		 	</a>
+		 </div>
+		 <br/>
+<!-- 		 <div class="colunaHorario centralized" style="width: 260px;"> -->
+<!-- 		 	<a ng-controller="LoginCtrl" ng-click="choose('Universidade de Pernambuco')" ui-sref="login"> -->
+<!-- 		 		<img class="centralized " src="img/upeLogo.jpg" style="background-size: 100% 100% !important;width: 100%;height:145px;background: url(img/triga3.jpg) no-repeat center center;"></img> -->
+<!-- 		 	</a> -->
+<!-- 		 </div> -->
+		 <br/>
+		 <div  class="colunaHorario centralized" style="width: 260px;">
+		 	<a ng-controller="LoginCtrl" ng-click="choose('TRIGA')" ui-sref="login">
+		 		<div class="centralized" style="background-size: 100% 145px !important;width: 100%;height:145px;background: url(img/triga3.jpg) no-repeat center center;"></div>
+		 	</a>
+		 </div>
+	</ion-content>
+</ion-view>

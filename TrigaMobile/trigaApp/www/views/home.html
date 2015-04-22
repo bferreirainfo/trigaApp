@@ -1,0 +1,49 @@
+ <ion-side-menus >
+ 
+    <!-- APP SCREEN -->
+	<ion-pane ion-side-menu-content>
+		 <!-- HEADER NAV BAR -->
+		<ion-nav-bar align-title="left" animation="slide-left-right" class="appHeader backgroundInstitution1">
+			<ion-nav-buttons side="left" > 
+				<button  class="button no-animation button-icon button-clear ion-navicon" style="color: black;" ng-click="sideMenuController.toggleLeft()"></button>
+			</ion-nav-buttons>
+		</ion-nav-bar>
+		<!-- APP CONTENT -->
+       	<ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+	</ion-pane> 
+	
+	<!-- SIDE MENU -->
+	<ion-side-menu side="left" expose-aside-when="large" class="noPM" edge-drag-threshold="true">
+		<ion-header-bar class="noPM padding" style="display: block;height:64px;z-index: 0">
+			<img src="img/logoTrigaHorizontal.png" style="  width: 275px;height: 121px;top: -13px;position: relative;z-index: 2"></img>
+		</ion-header-bar> 
+       	<ion-content ng-controller="MenuCtrl" has-bouncing="true" header-shrink  style="margin-top:20px !important;font-size:14px !important;background:rgb(11, 101, 102) !important" scrollbar-y="false" >
+   		 	<ul>
+				<div class="padding" style="font-weight: bolder;background: rgba(15, 78, 79, 1);color:rgb(185, 194, 194)">Perfil aluno</div>
+   		 		<menu-link section="section" class="ng-scope ng-isolate-scope">
+   		 			<md-button  menu-close href="#/menu/notas"  class="item item-icon-left boldCondensed itemMenu" >
+					<i class="icon"><img class="circle" src="img/userWithoutPhoto.jpg" style="box-show:none;width:30px;height:30px;left: 11px !important;"> </img></i>
+					<div  ng-controller="UserCtrl" >
+	    					<div style="font-weight: bolder;">{{name}}</div>
+	    					<div style="text-transform: lowercase !important;">{{course}}</div>
+					</div>
+				</md-button>
+				</menu-link>
+				<div class="padding" style="font-weight: bolder;background: rgba(15, 78, 79, 1);color:rgb(185, 194, 194)">Recursos do aluno</div>
+				<md-button ng-if="showGrades" menu-close href="#/menu/notas"  class="item item-icon-left boldCondensed itemMenu"><i class="icon ion-university " ></i>Notas</md-button>
+				<md-button ng-if="showscheduleGrid"  menu-close href="#/menu/quadroDeHorarios"  class="item item-icon-left boldCondensed itemMenu"><i class="icon ion-calendar"></i>Grade de horários</md-button>
+				<md-button ng-if="showfaultsControl"  menu-close href="#/menu/controleDeFaltas"  class="item item-icon-left boldCondensed itemMenu"><i class="icon ion-clipboard"  ></i>Controle de faltas</md-button>
+				<md-button ng-if="showNotifications"  menu-close href="#/menu/notifications"     class="item item-icon-left boldCondensed itemMenu"><i class="icon ion-android-globe"  ></i>Notificações</md-button>
+<!-- 				<md-button  menu-close href="#/menu/teacherReview"   class="item item-icon-left boldCondensed itemMenu"><i class="icon ion-ios-people" ></i>Avaliação dos professores</md-button> -->
+				<div >
+ 					<div class="padding" style="font-weight: bolder;background: rgba(15, 78, 79, 1);color:rgb(185, 194, 194)">Sobre</div>
+				</div>
+				<div class="item-icon-left itemMenu" style="width:100%;position: absolute;">
+					<i class="icon"><img class="circle" src="img/triga3.jpg" style="width:30px;height:30px !important;"> </img></i>
+					Plataforma Triga v0.1
+				</div>
+			</ul>
+		</ion-content>
+	</ion-side-menu>
+	
+</ion-side-menus>

@@ -1,0 +1,28 @@
+<ion-view title="Notificações" style="background: #f1f1f1;">
+  <ion-nav-buttons side="right" > 
+		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
+			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
+				<span ng-if="unsawNotficiationsSize > 0"  class="badge badge-assertive" style="left: 16px;top: -2px;font-size: 12px;position: absolute;">{{unsawNotficiationsSize}}</span>
+			</span>
+		</button>
+	</ion-nav-buttons>
+  <ion-content has-bouncing="true" class="padding" >
+  	<div style="width: 300px;" class="centralized">
+	    <div id="notificationList" class="list">
+    		<div ng-repeat="notification in storedNotifications track by $index">
+    			<div class="card">
+    			  <div class="item item-divider">
+				   		{{notification.title}}
+				  </div>
+				  <div class="item item-text-wrap">
+				    	{{notification.message}}
+				    	<div>
+				    	</div>
+				  <p>Recebido em: {{notification.date}}</p>
+				  </div>
+				</div>
+    		</div>
+		</div>
+	</div>
+  </ion-content>
+</ion-view>
