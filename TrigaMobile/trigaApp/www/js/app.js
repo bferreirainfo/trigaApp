@@ -119,7 +119,7 @@ trigaApp.config(function($ionicConfigProvider) {
 });
 var isProd;
 trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,$timeout,$rootScope) {
-	isProd = false;
+	isProd = true;
 	ionic.Platform.ready(function(){
 		var isUserAllReadyLogged= window.localStorage.getItem("studentPerfil") != null;
 		var waitForPushPluginInitialize = false;

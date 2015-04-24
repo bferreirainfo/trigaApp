@@ -128,7 +128,7 @@ trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistor
 		  		username = "bferreira.info@gmail.com";
 		  		break;
 		  	case 'TRIGA' :
-		  		username = "aluno1@triga.com";
+		  		username = "bferreira.info@gmail.com";
 	  			password = "123";
 		  		break;
 		  }
@@ -260,7 +260,7 @@ trigaApp.controller('TeacherReviewCtrl', function ($scope,$ionicSideMenuDelegate
 	  $scope.removeItem = function() {
 	    $scope.radioData.pop();
 	  };
-})
+})
 trigaApp.controller('NotificationsCtrl', function($rootScope,$scope) {
 	$scope.$on( "$ionicView.enter", function( scopes, states) {
 		if( states.stateName == "menu.notifications" ) {
