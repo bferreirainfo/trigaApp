@@ -25,12 +25,12 @@ trigaApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "views/home.html"
 
         })
-        .state('menu.quadroDeHorarios', {
-            url: "/quadroDeHorarios",
+        .state('menu.aulas', {
+            url: "/aulas",
             views: {
                 'menuContent' :{
-                    templateUrl: "views/horarios.html",
-                    controller: "QuadroDeHorarioCtrl"
+                    templateUrl: "views/aulas.html",
+                    controller: "AulasCtrl"
                 }
             }
         })

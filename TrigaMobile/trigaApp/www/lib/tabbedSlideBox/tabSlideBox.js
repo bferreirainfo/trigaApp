@@ -63,11 +63,15 @@ angular.module('tabSlideBox', [])
 					});
 					var initialIndex = attrs.tab;
 					$ionicSlideBoxDelegate.update();
+					
 					if((initialIndex ? initialIndex : 0) == 0){
 						$ionicSlideBoxDelegate.slide(0, -1);
 						setPosition(0);
 					}else{
-						$ionicSlideBoxDelegate.slide(initialIndex ? initialIndex : 0, -1);
+						$timeout(function () { 
+							$ionicSlideBoxDelegate.slide(initialIndex ? initialIndex : 0, -1);
+						},0);
+						
 					}
 				}
 				function setPosition(index){

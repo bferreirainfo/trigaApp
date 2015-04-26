@@ -37,7 +37,7 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 								 $("#contentAnimation1").show();
 							}else{
 								$("#contentAnimation1").animate({
-									'top': '46px',
+									'top': '41px',
 								}, {duration: 'slow', queue: false}).fadeIn(1000);
 								$("#contentAnimation1").removeClass("contentAnimation1");
 								firstime = false;
@@ -61,7 +61,7 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 	});
 	$scope.fetch = fetch;
 })
-trigaApp.controller('QuadroDeHorarioCtrl', function ($rootScope,$scope, QuadroDeHorarioSevice, $ionicLoading,$timeout) {
+trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSevice, $ionicLoading,$timeout) {
 //	ionic.Platform.showStatusBar(true);
 	var firstime = true;
 	function fetch(isPushToFrefresh){
@@ -109,7 +109,7 @@ trigaApp.controller('QuadroDeHorarioCtrl', function ($rootScope,$scope, QuadroDe
 			})
 	}
 	$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
-        if(states.stateName == "menu.quadroDeHorarios") {
+        if(states.stateName == "menu.aulas") {
         	$rootScope.sideMenuController.canDragContent(false);
         	$('.appHeader').removeClass("shadowed");
         	fetch();
@@ -268,6 +268,7 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope) {
 //			$('.appHeader').addClass("shadowed");
 			window.localStorage.removeItem("unsawNotficiations");
 			$scope.storedNotifications = JSON.parse(window.localStorage.getItem("storedNotifications"));
+//			$scope.storedNotifications = [{ title : 'seja bem vindo ao triga', message: 'mensagem padrão', date: '10/3'}]
 		};
 	});
 })
@@ -282,6 +283,9 @@ trigaApp.controller('UnsawNotficiationsPopoverCtrl', function($scope, $ionicPopo
 		$scope.dto = {top: ionic.Platform.isWebView() ? '35px' : '-13px'};
 		$scope.popover = popover;
   });
+	$scope.closePopover = function() {
+		    $scope.popover.hide();
+	};
 	
 	$scope.openPopover = function($event){
 		$scope.popover.show($event)

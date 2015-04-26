@@ -1,4 +1,4 @@
-<ion-view title="Controle De Faltas">
+<ion-view title="Controle de Faltas">
   <ion-nav-buttons side="right" > 
 		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
 			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
@@ -15,7 +15,7 @@
 	  		</div>
 		  	<div class="card padding" style="height: 90px;margin: 1px 1px 15px 1px;" >
 			  	<div class="row noPM">
-				  	<div style="width:65%;">
+				  	<div style="width:60%;">
 				  		<div style="font-size: 14px;">
 					  		 <div class="row noPM">
 				                <div style="width: 85%;">Professor</div>
@@ -31,7 +31,7 @@
 				            </div>
 				  		</div>
 			  		</div>
-			  		<div style="width: 35%;padding: 10px">
+			  		<div style="width: 40%;padding: 10px">
 				  		<div  style="width: 30%; white-space: nowrap;" >
 				  		<div class="row noPM">
 				  			<md-button type="submit" ng-click="addFalta(falta.cadeira.id)" ng-disabled=" dto.isUpdated == false" class="md-raised button-block" style="background: rgb(52, 127, 127);height:50px;min-width: 44px;color:white;font-size:20px;">+</md-button>

@@ -1,4 +1,4 @@
-<ion-view title="Horários" class="noPM" style="transform: translate3d(0em,0em,0em) !important;">
+<ion-view title="Aulas" class="noPM" style="transform: translate3d(0em,0em,0em) !important;">
 	<!-- RIGHT BUTTONS -->
 	<ion-nav-buttons side="right" > 
 		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
@@ -8,7 +8,7 @@
 		</button>
 	</ion-nav-buttons>
 	<!-- SUBHEADER -->
-	<ion-header-bar id="subHeader1" class="noPM subHeaderAnimationCondition " no-tap-scroll="true" style="height:64px !important;transform: translate3d(0em,0em,0em);" >
+	<ion-header-bar  id="subHeader1" class="noPM subHeaderAnimationCondition " no-tap-scroll="true" style="height:64px !important;transform: translate3d(0em,0em,0em);" >
 	       <tab-slide-box tab="{{initialSlide}}" whenready="{{dto}}" class="noPM"  >
 			    	<div id="tsbIcons" class="tsb-icons backgroundInstitution1"  >
 			    		<div class="tsb-ic-wrp backgroundInstitution1 shadowed" style="height: 64px !important;" >
@@ -32,6 +32,19 @@
     				Ultima atualização: {{dto.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}
    			</div>
 		</div>
+		
+		<ion-scroll ng-if="dto.scheduleGrid == null" style="height:100%;"  has-bouncing="true" class="padding">
+<!-- 			<ion-refresher -->
+<!-- 				    pulling-text="Puxe para atualizar..." -->
+<!-- 				    pulling-icon="ion-arrow-down-c" -->
+<!-- 				    spinner="android" -->
+<!-- 				    on-refresh="fetch(true)"> -->
+					<div  style="margin-top: 20%;margin-bottom: 20%;text-align: center;">
+						<div class="ion-calendar" style="font-size: 100px;"></div>
+						<div style="font-size: 20px;">Nenhum horário!</div>
+				    </div>
+<!-- 		   </ion-refresher> -->
+		</ion-scroll>
         <ion-slide-box  show-pager="false" on-slide-changed="slideHasChanged($index)" style="background: #f1f1f1;width:100%;" ng-style="{'padding-top' : dto.isUpdated == true }">
             <slideschedulecomponent schedule='dto.scheduleGrid.segunda' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.segunda"></slideschedulecomponent>
             <slideschedulecomponent schedule='dto.scheduleGrid.terca' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.terca"></slideschedulecomponent>
@@ -39,7 +52,7 @@
             <slideschedulecomponent schedule='dto.scheduleGrid.quinta' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.quinta"></slideschedulecomponent>
             <slideschedulecomponent schedule='dto.scheduleGrid.sexta' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.sexta"></slideschedulecomponent>
             <slideschedulecomponent schedule='dto.scheduleGrid.sabado' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.sabado"></slideschedulecomponent>
-            <slideschedulecomponent schedule='dto.scheduleGrid.domingo' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.sabado"></slideschedulecomponent>
+            <slideschedulecomponent schedule='dto.scheduleGrid.sabado' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.sabado"></slideschedulecomponent>
         </ion-slide-box>
 	</ion-content>
 	

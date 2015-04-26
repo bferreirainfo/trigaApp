@@ -1,4 +1,4 @@
-<ion-view title="Notificações" style="background: #f1f1f1;">
+<ion-view title="Notificações">
   <ion-nav-buttons side="right" > 
 		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
 			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
@@ -6,23 +6,39 @@
 			</span>
 		</button>
 	</ion-nav-buttons>
-  <ion-content has-bouncing="true" class="padding" >
-  	<div style="width: 300px;" class="centralized">
+  <ion-content has-bouncing="true"  >
 	    <div id="notificationList" class="list">
-    		<div ng-repeat="notification in storedNotifications track by $index">
-    			<div class="card">
-    			  <div class="item item-divider">
-				   		{{notification.title}}
-				  </div>
-				  <div class="item item-text-wrap">
-				    	{{notification.message}}
-				    	<div>
-				    	</div>
-				  <p>Recebido em: {{notification.date}}</p>
-				  </div>
-				</div>
-    		</div>
-		</div>
-	</div>
+	    	<div ng-if="storedNotifications == null" style="margin-top: 40%;margin-bottom: 20%;text-align: center;">
+				<div class="ion-android-globe" style="font-size: 100px;"></div>
+				<div style="font-size: 20px;">Nenhuma notificação!</div>
+			</div>
+    		<div style="margin-top:20px">
+    			<md-item ion-item style="text-align:left;" ng-repeat="notification in storedNotifications track by $index">
+			        <md-item style="text-align:left;">
+				        <md-item-content class="padding">
+				        	<div class="md-tile-left" style="width: 55px;height: 55px;margin-right:15px;-webkit-align-items:top;" >
+						         <div style="font-size: 30px;box-shadow:none;width: 55px;height: 55px;">
+					            		<img class="circle" style="width: 55px;height: 55px;" src="img/triga3.jpg"></img>
+						         </div>
+				          	</div>
+				          	<div class="md-tile-content noPM">
+				          		<div style="white-space: nowrap;">
+						            <h3  class="boldCondensed " style="float:left;font-family: 'Roboto thin' !important;color:rgb(11, 101, 102);text-transform: capitalize;font-size: 14px !important;">
+						            	{{notification.title}}
+						            </h3>
+						            <p class="noPM" style="float:right;font-size: 1.0em;  color: rgb(89, 142, 255);line-height: 16px;" >
+						    	   		{{notification.date}}
+									</p>	
+				          		</div>
+						    	<h4 class="row noPM" style="color: black;text-align: left;" >
+									{{notification.message}}
+								</h4>
+							</div>
+				        </md-item-content>
+		      		</md-item>
+					<md-divider md-inset style="margin-left: 0px;border-top-color: rgba(118, 118, 118, 0.19)" ></md-divider>
+		      	</md-item>
+   			</div>
+   		</div>
   </ion-content>
 </ion-view>

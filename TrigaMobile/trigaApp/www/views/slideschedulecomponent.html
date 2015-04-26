@@ -7,7 +7,9 @@
 			    on-refresh="fecthMethod({param : true});">
 		</ion-refresher>
 		<div class="slideUp" style="height:100%;" >
-			<img ng-if="schedule == ''" class="circle" src="img/bedIcon.png" style="box-show:none;width:300px;height:300px;margin-left: auto; margin-right: auto;position: relative; top: 20%;"> </img>
+			<div ng-if="schedule == ''"  class="colunaHorario padding" style="background: white;width: 100%;">
+				<img   src="img/sleeping.png" style="width:50%;height:109px;"> </img>
+			</div>
 			<div class="colunaHorario padding" style="background: white;width: 100%;" ng-repeat="horario in schedule track by horario.cadeira">
 				<div style="font-size: 18px !important;color:rgb(29, 157, 146)" class="boldCondensed" >{{horario.cadeira}}</div>
 				<div class="row" style="height: auto;padding-top:10px" >

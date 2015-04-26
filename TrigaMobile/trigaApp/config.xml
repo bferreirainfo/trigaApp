@@ -13,6 +13,7 @@
   <allow-navigation href="data:*" />
   <access origin="*" />
   <access origin="content:///*" />
+  <preference name="fullscreen" value="false" />
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
   <gap:plugin name="com.adobe.plugins.pushplugin"/>
   <gap:plugin name="org.apache.cordova.device"/>
