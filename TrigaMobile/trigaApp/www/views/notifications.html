@@ -15,25 +15,25 @@
     		<div style="margin-top:20px">
     			<md-item ion-item style="text-align:left;" ng-repeat="notification in storedNotifications track by $index">
 			        <md-item style="text-align:left;">
-				        <md-item-content class="padding">
-				        	<div class="md-tile-left" style="width: 55px;height: 55px;margin-right:15px;-webkit-align-items:top;" >
+				        <md-item-content class="padding" style="align-items: initial;">
+				        	<div class="md-tile-left" style="width: 50px;height: 50px;margin-right:10px;position: relative;top:7px;" >
 						         <div style="font-size: 30px;box-shadow:none;width: 55px;height: 55px;">
 					            		<img class="circle" style="width: 55px;height: 55px;" src="img/triga3.jpg"></img>
 						         </div>
 				          	</div>
-				          	<div class="md-tile-content noPM">
-				          		<div style="white-space: nowrap;">
-						            <h3  class="boldCondensed " style="float:left;font-family: 'Roboto thin' !important;color:rgb(11, 101, 102);text-transform: capitalize;font-size: 14px !important;">
-						            	{{notification.title}}
-						            </h3>
-						            <p class="noPM" style="float:right;font-size: 1.0em;  color: rgb(89, 142, 255);line-height: 16px;" >
+				          		<div class="row">
+				          			<div style="width: 95%;min-height: 55px;">
+							            <h3  class="row boldCondensed noPM" style="float:left;font-family: 'Roboto thin' !important;color:rgb(11, 101, 102);text-transform: capitalize;font-size: 14px !important;">
+							            	{{notification.title}}
+							            </h3>
+								    	<h4 class="row thin noPM" style="color: black;text-align: left;" >
+											{{notification.message}}
+										</h4>
+				          			</div>
+						            <p class="noPM boldCondensed" style="text-align: right;width: 15%;font-size: 1.0em;  color: rgb(89, 142, 255);line-height: 16px;white-space: nowrap;" >
 						    	   		{{notification.date}}
 									</p>	
 				          		</div>
-						    	<h4 class="row noPM" style="color: black;text-align: left;" >
-									{{notification.message}}
-								</h4>
-							</div>
 				        </md-item-content>
 		      		</md-item>
 					<md-divider md-inset style="margin-left: 0px;border-top-color: rgba(118, 118, 118, 0.19)" ></md-divider>

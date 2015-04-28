@@ -1,7 +1,7 @@
 'use strict';
 var devLocalUrl = "http://192.168.1.4:8080/trigaportal/trigaMobile/aluno/"
 var devWebUrl= "http://trigaportal-trigaserver.rhcloud.com/trigaMobile/aluno/"
-var isLocal = true;
+var isLocal = false;
 var apiUrl = isLocal ? devLocalUrl : devWebUrl;
 
 //trigaApp.factory("TrigaPortalWS", functi on ($resource,$rootScope) {

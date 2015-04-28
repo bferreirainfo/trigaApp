@@ -268,7 +268,10 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope) {
 //			$('.appHeader').addClass("shadowed");
 			window.localStorage.removeItem("unsawNotficiations");
 			$scope.storedNotifications = JSON.parse(window.localStorage.getItem("storedNotifications"));
-//			$scope.storedNotifications = [{ title : 'seja bem vindo ao triga', message: 'mensagem padrão', date: '10/3'}]
+			if(!ionic.Platform.isWebView())
+			$scope.storedNotifications = [{ title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3'},
+			                              { title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição. Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3'},
+			                              { title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3'}]
 		};
 	});
 })
