@@ -6,7 +6,11 @@
 			</span>
 		</button>
 	</ion-nav-buttons>
+	<md-button class="md-fab" style="position: absolute;  left: 78%;  top: 85%;  background: rgb(52, 127, 127)" ng-click="showAlert($event)">
+           		<div class="circle ion-ios-trash" style="font-size: 34px;box-shadow:none;width: 55px;height: 55px; position: relative; left: -5px;top:5px; color: rgba(0, 0, 0, 0.79);"></div>
+    </md-button>
   <ion-content has-bouncing="true"  >
+  		
 	    <div id="notificationList" class="list">
 	    	<div ng-if="storedNotifications == null" style="margin-top: 40%;margin-bottom: 20%;text-align: center;">
 				<div class="ion-android-globe" style="font-size: 100px;"></div>
@@ -17,13 +21,17 @@
 			        <md-item style="text-align:left;">
 				        <md-item-content class="padding" style="align-items: initial;">
 				        	<div class="md-tile-left" style="width: 50px;height: 50px;margin-right:10px;position: relative;top:7px;" >
-						         <div style="font-size: 30px;box-shadow:none;width: 55px;height: 55px;">
-					            		<img class="circle" style="width: 55px;height: 55px;" src="img/triga3.jpg"></img>
+						         <div style="font-size: 30px;box-shadow:none;width: 45px;height: 45px;">
+						         		<span ng-switch on="notification.notificaitonType">
+					            			<img ng-switch-when="TRIGA" class="circle" style="width: 45px;height: 45px;" src="img/triga3.jpg"></img>
+					            			<img ng-switch-when="INSTITUTION" class="circle" style="width: 45px;height: 45px;" ng-src="{{institutionIcon}}"></img>
+					            			<div ng-switch-when="GRADE_NOTIFICATION" class="circle" style="width: 45px;height: 45px;background: rgb(232, 232, 232);  padding: 8px 0px 0px 10px;"><i class="icon ion-university" ></i></div>
+										</span>
 						         </div>
 				          	</div>
 				          		<div class="row">
-				          			<div style="width: 95%;min-height: 55px;">
-							            <h3  class="row boldCondensed noPM" style="float:left;font-family: 'Roboto thin' !important;color:rgb(11, 101, 102);text-transform: capitalize;font-size: 14px !important;">
+				          			<div style="width: 95%;min-height: 45px;">
+							            <h3  class="row boldCondensed noPM" style="float:left;font-family: 'Roboto thin' !important;color:rgb(11, 101, 102);font-size: 14px !important;">
 							            	{{notification.title}}
 							            </h3>
 								    	<h4 class="row thin noPM" style="color: black;text-align: left;" >

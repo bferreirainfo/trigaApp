@@ -27,7 +27,7 @@
 	</ion-header-bar>
 	<!-- CONTENT -->
 	<ion-content id="contentAnimation" class="contentAnimation noPM tabsdemoStaticTabs" style="z-index:0;transform: translate3d(0em,0em,0em);" scroll="false" >
-		<div ng-if="" style="background: #f1f1f1;width:100%;position: absolute;z-index: 11;padding:10px 10px 0px 10px">
+		<div ng-if="" style="background: white;width:100%;position: absolute;z-index: 11;padding:10px 10px 0px 10px">
 			<div  class="colunaHorario padding" style="background: white;width: 100%; font-size: 14px;  text-align: center;" >
     				Ultima atualização: {{dto.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}
    			</div>
@@ -45,7 +45,7 @@
 				    </div>
 <!-- 		   </ion-refresher> -->
 		</ion-scroll>
-        <ion-slide-box  show-pager="false" on-slide-changed="slideHasChanged($index)" style="background: #f1f1f1;width:100%;" ng-style="{'padding-top' : dto.isUpdated == true }">
+        <ion-slide-box  show-pager="false" on-slide-changed="slideHasChanged($index)" style="background: white;width:100%;" ng-style="{'padding-top' : dto.isUpdated == true }">
             <slideschedulecomponent schedule='dto.scheduleGrid.segunda' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.segunda"></slideschedulecomponent>
             <slideschedulecomponent schedule='dto.scheduleGrid.terca' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.terca"></slideschedulecomponent>
             <slideschedulecomponent schedule='dto.scheduleGrid.quarta' fecth-method="fetch(param)" ng-if="dto.scheduleGrid.quarta"></slideschedulecomponent>

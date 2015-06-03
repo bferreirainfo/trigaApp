@@ -19,7 +19,8 @@
       "id": "cordova-plugin-crosswalk-webview",
       "locator": "./engine/cordova-crosswalk-engine-c0.7.1"
     },
-    "org.apache.cordova.splashscreen"
+    "org.apache.cordova.splashscreen",
+    "org.apache.cordova.file-transfer"
   ],
   "cordovaPlatforms": [
     {

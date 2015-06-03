@@ -33,7 +33,7 @@ var lastTimeCached = {};
 trigaApp.service('PushNotificationService', function($q,$resource) {
     return {
     	saveDeviceKeyInServer: function(devicePushNotificationKey) {
-    		var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).studentId;
+    		var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
     		var regResource = $resource(apiUrl+ ':action?studentId=:studentId&institution=:institution&devicePushNotificationKey=:devicePushNotificationKey&deviceUUID=:deviceUUID&deviceModel=:deviceModel&devicePlatform=:devicePlatform&deviceVersion=:deviceVersion',
     								   { action: "saveDeviceKey", studentId: studentId,  institution: institutionName, devicePushNotificationKey : devicePushNotificationKey, deviceUUID : device.uuid, deviceModel : device.model , devicePlatform: device.platform, deviceVersion: device.version }, { 'get':  {method: 'GET', isArray : false} });
@@ -84,7 +84,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 			var q = $q.defer();
 			//fixme cache!!!!
 			if(isCacheExpired("ControleDeFaltasService") || true){
-				var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).studentId;
+				var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
 	    		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
 				var faltasResource = $resource(apiUrl+':action?studentId=:studentId&institution=:institution',
 											  {action: "faltas" , studentId: studentId, institution: institutionName}, { 'get':  {method: 'GET', isArray : true} });
@@ -112,7 +112,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 			return q.promise;
 		},
 		addFalta: function(cadeiraId) {
-			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).studentId;
+			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
 			var addFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "addFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', isArray : false} });
 			var q = $q.defer();
@@ -124,7 +124,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 			return q.promise;
 		},
 		subFalta: function(cadeiraId) {
-			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).studentId;
+			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
 			var subFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "subFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', isArray : false} });
 			var q = $q.defer();

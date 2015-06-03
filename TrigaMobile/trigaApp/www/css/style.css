@@ -42,7 +42,7 @@ html,body {
 .title{
 	position: initial !important;
 	font-weight: bolder;
-	font-family: Roboto light !important;
+	font-family: Roboto !important;
 	font-size: 20px !important;
 	padding: 6px;
 	padding-left: 14px;
@@ -480,9 +480,9 @@ md-divider.md-default-theme {
     }
 }
 .spinner-container {
-z-index: 2;
--webkit-animation: rotate 2s linear infinite;
-animation: rotate 2s linear infinite;
+	z-index: 2;
+	-webkit-animation: rotate 2s linear infinite;
+	animation: rotate 2s linear infinite;
 }
 .reprovedSymbol{
 	color: red;
@@ -501,4 +501,7 @@ animation: rotate 2s linear infinite;
 }
 .loading-container .loading{
 	background: none !important;
+}
+.buttons-right{
+	top:8px !important;
 }

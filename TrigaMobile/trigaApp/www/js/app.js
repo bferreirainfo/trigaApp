@@ -43,14 +43,6 @@ trigaApp.config(function($stateProvider, $urlRouterProvider) {
         		}
         	}
         })
-        .state('menu.sendNotification', {
-        	url: "/sendNotification",
-        	views: {
-        		'menuContent' :{
-        			templateUrl: "views/sendNotification.html",
-        		}
-        	}
-        })
 	    .state('menu.notas', {
 	    	url: "/notas",
 	    	views: {
@@ -120,6 +112,7 @@ trigaApp.config(function($ionicConfigProvider) {
 var isProd;
 trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,$timeout,$rootScope) {
 	isProd = true;
+	FastClick.attach(document.body);
 	ionic.Platform.ready(function(){
 		var isUserAllReadyLogged= window.localStorage.getItem("studentPerfil") != null;
 		var waitForPushPluginInitialize = false;

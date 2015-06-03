@@ -13,7 +13,7 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 				 $ionicLoading.show()
 			 },100)
 		 }
-		 var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).studentId;
+		 var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
 		 NotasService.TodasNotas(studentId).then(
 					function success(resp) {
 						$(".slideUp1:eq(0)").hide();
@@ -75,7 +75,7 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 			 }
 			 $ionicLoading.show()
 		 }
-		var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).studentId;
+		var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
 		QuadroDeHorarioSevice.obterQuadroDeHorario(studentId).then(
 				function success(resp) {
 					var response = {scheduleGrid : resp , isUpdated: true ,lastUpdateDate : new Date()};
@@ -140,8 +140,13 @@ trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistor
 			  LoginService.login(user.username, user.password).then(
 					  function success(resp) {
 						  if(isEmpty(resp)){
+							  console.log("login response: ", resp);
 							  window.localStorage.setItem("appConfig", JSON.stringify(resp.appConfig));
-							  window.localStorage.setItem("studentPerfil", JSON.stringify(resp.studentPerfil));
+							  window.localStorage.setItem("studentPerfil", JSON.stringify(resp.perfil));
+
+							 
+							  
+							  //
 							  //registerNewDevice + teste notification
 							  if(ionic.Platform.isWebView())
 								  pushNotificationRegister.initialize(PushNotificationService);
@@ -149,10 +154,36 @@ trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistor
 								  disableAnimate: true,
 								  disableBack: true
 							  });
+							  
+							  
+							  if(ionic.Platform.isWebView()){
+								  
+							  var institutionName = resp.appConfig.instituionName.toLowerCase();
+							  var url = "http://trigaportal-trigaserver.rhcloud.com/institutionsLogos/institutionSmallIcon/" + institutionName + '_small_icon.png';
+							  var fileDir = cordova.file.dataDirectory;
+							  var fileName = 'institution_small_icon.png'
+							  var targetPath = fileDir + fileName;
+							  
+//							  window.resolveLocalFileSystemURL(targetPath, console.log("starting verification"), function downloadAsset() {
+								var fileTransfer = new FileTransfer();
+								fileTransfer.download(url, targetPath, 
+									function(entry) {
+										console.log("Success!");
+										console.log("file downloaded")
+									}, 
+									function(err) {
+										console.log("Error");
+										console.dir(err);
+									});
+//							  });
+							  }
+							  
+							  
+							  
 							  console.log(JSON.stringify(resp.appConfig));
 							  $state.go('menu.'+ resp.appConfig.defaultPage);
 						  }else{
-							  alert("email incorreto");
+							  alert("Dados incorretos");
 						  }
 					  }, function error(resp){
 					});
@@ -261,17 +292,61 @@ trigaApp.controller('TeacherReviewCtrl', function ($scope,$ionicSideMenuDelegate
 	    $scope.radioData.pop();
 	  };
 })
-trigaApp.controller('NotificationsCtrl', function($rootScope,$scope) {
+trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, $timeout) {
+	$scope.showAlert = function(ev) {
+	    // Appending dialog to document.body to cover sidenav in docs app
+	    // Modal dialogs should fully cover application
+	    // to prevent interaction outside of dialog
+	    $mdDialog.show(
+	    		
+	      $mdDialog.confirm()
+	        .title('Deseja deletar todas as notificações?')
+	        .content('Todas as notificações serão removidas para todo o sempre e não pode ser desfeito.')
+	        .ariaLabel('Alert Dialog Demo')
+	        .ok('Deletar!')
+	        .cancel('Deixa pra lá!')
+	        .targetEvent(ev)
+	    ).then(function() {
+	    	window.localStorage.removeItem("storedNotifications");
+	    	$timeout(function(){
+	    		var notificationListElement = document.getElementById("notificationList");
+   			 if(null != notificationListElement){
+   				 var storedNotificationsScope = angular.element(notificationListElement).scope();
+   					 storedNotificationsScope.$apply(function(){
+   						 storedNotificationsScope.storedNotifications = null;
+   					 });
+   			 }
+			},0)
+	    }, function() {
+	    	//
+	    });;
+	  };
 	$scope.$on( "$ionicView.enter", function( scopes, states) {
+		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
+		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
+		var targetPath = fileDir + fileName;
+		$scope.institutionIcon = targetPath;
 		if( states.stateName == "menu.notifications" ) {
+			
 			$rootScope.sideMenuController.canDragContent(true);
 //			$('.appHeader').addClass("shadowed");
 			window.localStorage.removeItem("unsawNotficiations");
-			$scope.storedNotifications = JSON.parse(window.localStorage.getItem("storedNotifications"));
+			$timeout(function(){
+			var storedNotifications = JSON.parse(window.localStorage.getItem("storedNotifications"));
 			if(!ionic.Platform.isWebView())
-			$scope.storedNotifications = [{ title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3'},
-			                              { title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição. Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3'},
-			                              { title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3'}]
+			storedNotifications = [{ title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3', notificaitonType: 'TRIGA'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: '10/3', notificaitonType: 'INSTITUTION'},
+			                              { title : 'seja bem vindo ao triga', message: '', date: '10/3', notificaitonType:'GRADE_NOTIFICATION'}]
+			var notificationListElement = document.getElementById("notificationList");
+  			 if(null != notificationListElement){
+  				 var storedNotificationsScope = angular.element(notificationListElement).scope();
+  					 storedNotificationsScope.$apply(function(){
+  						 storedNotificationsScope.storedNotifications = storedNotifications;
+  					 });
+  			 }
+			
+			},0)
+			
 		};
 	});
 })
@@ -282,8 +357,8 @@ trigaApp.controller('UnsawNotficiationsPopoverCtrl', function($scope, $ionicPopo
 		$scope.unsawNotficiationsSize =  $scope.unsawNotficiations.length;
 	},1000)
 	
+	$scope.dto = {top: ionic.Platform.isWebView() ? '35px' : '0px'};
 	$ionicPopover.fromTemplateUrl('views/popover.html',{scope:$scope}).then(function(popover) {
-		$scope.dto = {top: ionic.Platform.isWebView() ? '35px' : '-13px'};
 		$scope.popover = popover;
   });
 	$scope.closePopover = function() {
@@ -318,10 +393,10 @@ trigaApp.controller('ChooseInstitutionCtrl', function($scope, LoginService) {
 
 trigaApp.controller('MenuCtrl', function($scope) {
 	var appConfig = JSON.parse(window.localStorage.getItem("appConfig"));
-	$scope.showGrades =  appConfig.funcionalities.indexOf('GRADES') > -1;
-	$scope.showscheduleGrid =  appConfig.funcionalities.indexOf('SCHEDULE_GRID') > -1;
-	$scope.showfaultsControl =  appConfig.funcionalities.indexOf('FAULTS_CONTROL') > -1;
-	$scope.showNotifications =  appConfig.funcionalities.indexOf('NOTIFICATIONS') > -1;
+	$scope.showGrades =  appConfig.studentFuncionalities.funcionalities.indexOf('GRADES') > -1;
+	$scope.showscheduleGrid =  appConfig.studentFuncionalities.funcionalities.indexOf('SCHEDULE_GRID') > -1;
+	$scope.showfaultsControl =  appConfig.studentFuncionalities.funcionalities.indexOf('FAULTS_CONTROL') > -1;
+	$scope.showNotifications =  appConfig.studentFuncionalities.funcionalities.indexOf('NOTIFICATIONS') > -1;
 })
 
 function isEmpty(obj){
