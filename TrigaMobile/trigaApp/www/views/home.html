@@ -21,11 +21,11 @@
    		 	<ul>
 				<div class="padding" style="font-weight: bolder;background: rgba(15, 78, 79, 1);color:rgb(185, 194, 194)">Perfil aluno</div>
    		 		<menu-link section="section" class="ng-scope ng-isolate-scope">
-   		 			<md-button  menu-close href="#/menu/notas"  class="item item-icon-left boldCondensed itemMenu" >
-					<i class="icon"><img class="circle" src="img/userWithoutPhoto.jpg" style="box-show:none;width:30px;height:30px;left: 11px !important;"> </img></i>
-					<div  ng-controller="UserCtrl" >
-	    					<div style="font-weight: bolder; height: 25px;">{{name}}</div>
-	    					<div style="text-transform: lowercase !important;">{{course}}</div>
+				<md-button  class="item item-icon-left boldCondensed itemMenu noPM" >
+					<i class="icon noPM"><img class="circle noPM" src="img/userWithoutPhoto.jpg" style="box-show:none;width:30px;height:30px;left: 11px !important;"> </img></i>
+					<div  class="noPM" ng-controller="UserCtrl" >
+		   					<div class="noPM" style="text-transform: capitalize;font-weight: bolder; height: 25px;">{{name}}</div>
+		   					<div class="noPM" style="text-transform: capitalize !important;">{{course}}</div>
 					</div>
 				</md-button>
 				</menu-link>
@@ -38,10 +38,10 @@
 				<div >
  					<div class="padding" style="font-weight: bolder;background: rgba(15, 78, 79, 1);color:rgb(185, 194, 194)">Sobre</div>
 				</div>
-				<div class="item-icon-left itemMenu" style="width:100%;position: absolute;">
+				<md-button menu-close href="#/menu/EnviarMensagem"  class="item item-icon-left boldCondensed itemMenu">
 					<i class="icon"><img class="circle" src="img/triga3.jpg" style="width:30px;height:30px !important;"> </img></i>
 					Plataforma Triga v0.1
-				</div>
+				</md-button>
 			</ul>
 		</ion-content>
 	</ion-side-menu>

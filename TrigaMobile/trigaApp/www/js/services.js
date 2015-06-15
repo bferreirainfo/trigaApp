@@ -4,6 +4,9 @@ var devWebUrl= "http://trigaportal-trigaserver.rhcloud.com/trigaMobile/aluno/"
 var isLocal = false;
 var apiUrl = isLocal ? devLocalUrl : devWebUrl;
 
+var timeoutError = -2;
+var noConnectionError = -1;
+
 //trigaApp.factory("TrigaPortalWS", functi on ($resource,$rootScope) {
 //    return $resource(
 //        'http://trigaportal-trigaserver.rhcloud.com/trigaMobile/aluno/:action?alunoId=:alunoId&instituicao=:instituicao', { action: "notas", alunoId: '10', instituicao: 'alquimia'}, {
@@ -28,7 +31,6 @@ var apiUrl = isLocal ? devLocalUrl : devWebUrl;
 //    );
 //});
 /* Services */
-var lastTimeCached = {};
 
 trigaApp.service('PushNotificationService', function($q,$resource) {
     return {
@@ -65,14 +67,9 @@ trigaApp.service('NotasService', function($q,$resource) {
 	 return {
 	        TodasNotas: function(studentId) {
 	    		var regResource = $resource(apiUrl+':action?alunoId=:alunoId&institution=:institution', 
-	    								   {action: "notas", alunoId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName},{ 'get':  {method: 'GET', isArray : true} });
+	    								   {action: "notas", alunoId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName},{ 'get':  {method: 'GET', isArray : true, timeout: 5000} });
 	            var q = $q.defer();
-	            regResource.get(function(resp) {
-	            	removePromiseProperties(resp);
-	                q.resolve(resp);
-	            }, function(err) { 
-	                q.reject(err);
-	            })
+	            fecthData(q,regResource, 'get',"grades");
 	            return q.promise;
 	        }
 	 	}
@@ -82,33 +79,11 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 	return {
 		findAll: function() {
 			var q = $q.defer();
-			//fixme cache!!!!
-			if(isCacheExpired("ControleDeFaltasService") || true){
-				var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
-	    		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
-				var faltasResource = $resource(apiUrl+':action?studentId=:studentId&institution=:institution',
-											  {action: "faltas" , studentId: studentId, institution: institutionName}, { 'get':  {method: 'GET', isArray : true} });
-				faltasResource.get(function(resp) {
-					removePromiseProperties(resp);
-					var lastTimeCachedDate = new Date();
-					lastTimeCached["ControleDeFaltasService"] = lastTimeCachedDate;
-					var response = { faults : resp, isUpdated : true , lastUpdateDate : lastTimeCachedDate};
-					window.localStorage.setItem("faults", JSON.stringify(response));
-					console.log(JSON.stringify(response))
-					q.resolve(response);
-					
-				}, function(err) { 
-					console.log("error retrive faults: "+ JSON.stringify(resp));
-					var response = JSON.parse(window.localStorage.getItem("faults"));
-					response.isUpdated = false;
-					q.reject(response);
-					
-				});
-				
-			}else{
-				//cache
-				q.resolve(JSON.parse(window.localStorage.getItem("faults")));
-			}
+			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
+    		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
+			var faltasResource = $resource(apiUrl+':action?studentId=:studentId&institution=:institution',
+										  {action: "faltas" , studentId: studentId, institution: institutionName}, { 'get':  {method: 'GET', isArray : true, timeout: 5000} });
+			fecthData(q,faltasResource, 'get',"faults");
 			return q.promise;
 		},
 		addFalta: function(cadeiraId) {
@@ -116,11 +91,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
 			var addFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "addFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', isArray : false} });
 			var q = $q.defer();
-			addFaltaResource.get(function(resp) {
-				q.resolve(resp);
-			}, function(err) { 
-				q.reject(err);
-			})
+			fecthData(q,addFaltaResource, 'get');
 			return q.promise;
 		},
 		subFalta: function(cadeiraId) {
@@ -128,32 +99,19 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
 			var subFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "subFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', isArray : false} });
 			var q = $q.defer();
-			subFaltaResource.get(function(resp) {
-				q.resolve(resp);
-			}, function(err) { 
-				q.reject(err);
-			})
+			fecthData(q,subFaltaResource, 'get');
 			return q.promise;
 		}
 	}
 })
 
-
-
 trigaApp.service('QuadroDeHorarioSevice', function($q,$resource) {
 	return {
 		obterQuadroDeHorario: function(studentId) {
 			var quadroDeHorarioResource = $resource(apiUrl+':action?alunoId=:studentId&institution=:institution',
-												   { action: "quadroDeHorario" , studentId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName}, { 'get':  {method: 'GET'} });
+												   { action: "quadroDeHorario" , studentId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName}, { 'get':  {method: 'GET', timeout: 5000} });
 			var q = $q.defer();
-			quadroDeHorarioResource.get(
-				function(resp) {
-					removePromiseProperties(resp);
-					q.resolve(resp);
-				}, 
-				function(err) { 
-					q.reject(err);
-				});
+			fecthData(q,quadroDeHorarioResource, 'get',"scheduleGrid");
 			return q.promise;
 		}
 		
@@ -180,9 +138,8 @@ trigaApp.service('UserPerfilService', function($q,$resource) {
 })
 
 trigaApp.service('LoginService', function($q,$resource) {
-	var institutionName = "";
 	return {
-		login: function(username, password) {
+		login: function(username, password,institutionName) {
 			var resource = $resource(apiUrl+':action?username=:username&password=:password&institution=:institution',{ action: "login", username: username, password : password, institution: institutionName }, { get:  {method: 'GET'} });
 			var q = $q.defer();
 			resource.get(
@@ -195,12 +152,6 @@ trigaApp.service('LoginService', function($q,$resource) {
 					});
 			return q.promise;
 		},
-		getInstitution : function(){
-			return institutionName;
-		},
-		setInstitution : function(newName){
-			institutionName = newName;
-		}
 	}
 })
 
@@ -239,7 +190,39 @@ function isCacheExpired(serviceName){
 	return expired;
 }
 
-
+function fecthData(qDefered,resource,methodName,storageKey, tries){
+	if(connectionStatus()){
+		var isFirstTime = tries == null;
+		isFirstTime ? tries = 0 : tries++;
+		resource[methodName](function(resp) {
+	    	removePromiseProperties(resp);
+	    	var response = {data : resp ,lastUpdateDate : new Date()};
+	    	if(storageKey)
+			window.localStorage.setItem(storageKey, JSON.stringify(response));
+	    	qDefered.resolve(response);
+	    }, function(err) {
+	    	var isTimeOutError = err.status == 0 && err.data == null;
+	    	if(isTimeOutError){
+	    		console.log("THE TRIES THO,THE TRIES...", tries)
+	    		if(tries > 3){
+	    			if(storageKey)
+	    			err.cache = JSON.parse(window.localStorage.getItem(storageKey));
+	    			err.status = timeoutError;
+	    			err.errorMessage = {title: "Demora na resposta" , description: "Tente novamente mais tarde.", lastUpdateDate: err.cache ? err.cache.lastUpdateDate : "nunca atualizado"};
+	    			qDefered.reject(err);
+	    		}else{
+	    			fecthData(qDefered,resource,methodName,storageKey,tries);
+	    		}
+	    	}
+	    })
+	}else{
+		var err = {cache : null, status: null, errorMessage: null};
+		err.cache = JSON.parse(window.localStorage.getItem(storageKey));
+		err.status = noConnectionError;
+		err.errorMessage = {title: "Sem conexão com a internet" , description: "Verifique se ah uma conexão válida e tente novamente.", lastUpdateDate: err.cache ? err.cache.lastUpdateDate : "nunca atualizado"};
+		qDefered.reject(err);
+	}
+}
 
 function removePromiseProperties(resp){
 	var promise = "$promise";
@@ -248,4 +231,22 @@ function removePromiseProperties(resp){
 	resp["$resolved"] = null;
 	delete resp["$promise"];
 	delete resp["$resolved"];
+}
+function connectionStatus(){
+	if(ionic.Platform.isWebView()){
+		 var networkState = navigator.connection.type;
+		 var states = {};
+	    states[Connection.UNKNOWN]  = 'Unknown connection';
+	    states[Connection.ETHERNET] = 'Ethernet connection';
+	    states[Connection.WIFI]     = 'WiFi connection';
+	    states[Connection.CELL_2G]  = 'Cell 2G connection';
+	    states[Connection.CELL_3G]  = 'Cell 3G connection';
+	    states[Connection.CELL_4G]  = 'Cell 4G connection';
+	    states[Connection.CELL]     = 'Cell generic connection';
+	    states[Connection.NONE]     = 'No network connection';
+	    
+	    return states[networkState] != 'No network connection';
+	 }else{
+		 return true;
+	 }
 }

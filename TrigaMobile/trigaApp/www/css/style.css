@@ -210,7 +210,7 @@ html,body {
 /* 	Curso Alquimia Especial */
  	/* background: #1D9D92 !important; */
 	color:black !important;
-	background-color: rgb(52, 127, 127) !important;
+	background-color: rgb(11, 101, 102) !important;
 /* 	Faculdade Funeso */
 /* 	background: rgb(16, 101, 183) !important; */
 /* 	color:rgb(16, 101, 183) !important; */
@@ -331,7 +331,7 @@ html,body {
 
 
 md-divider.md-default-theme {
-	border-top-color: rgba(0, 0, 0, 0.44);
+  border-top-color: rgba(0, 0, 0, 0.13);
 }
 
 .item-icon-left .icon, .item-icon-right .icon{
@@ -370,13 +370,15 @@ md-divider.md-default-theme {
 }
 
 .itemMenu{
+	border:none !important;
 	text-align:left !important;
 	text-transform: none !important;
-	color:white !important;
-	border-radius: 0px !important;
-	border-bottom: 2px solid !important;
-	padding: 10px 5px 10px 30px !important;
-	transform: translate3d(0em,0em,0em);
+	width: 100%;
+	padding: 6px 0px 6px 60px !important;
+	margin: 0px !important;
+	color: rgb(250, 211, 91) !important;
+	display: inherit !important;
+	border-bottom: 1px solid rgb(51, 51, 51) !important ;
 }
 .itemIcon{
 	left: 0px !important;
@@ -386,15 +388,6 @@ md-divider.md-default-theme {
 }
 .tabbedItemW{
 	/* width: 33% !important; */
-}
-.itemMenu{
-	border:none !important;
-	text-align:left !important;
-	text-transform: none !important;
-	padding:15px 15px 15px 53px !important;
-	color: rgb(250, 211, 91) !important;
-	position: relative !important;
-	border-bottom: 1px solid rgb(51, 51, 51) !important ;
 }
 .itemMenu >.icon{
 	color: white !important;
@@ -504,4 +497,13 @@ md-divider.md-default-theme {
 }
 .buttons-right{
 	top:8px !important;
+}
+.md-subheader:not(.md-sticky-no-effect):after{
+	right:0 !important;
+}
+.md-list-item-text{
+	padding: 10px 0 !important;
+}
+.noPM .md-subheader-inner {
+  padding: 0px 0px 0px 16px !important;
 }

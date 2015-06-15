@@ -3,58 +3,60 @@
 trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ionicLoading, $timeout) {
 	var firstime = true;
 	function fetch(isPushToFrefresh){
-		 if(!isPushToFrefresh){
-			$("#contentAnimation1").hide();
+		$scope.isFetching = true;
+		if(!isPushToFrefresh){
+			$("#gradeListView").hide();
 			 if(firstime){
-				$("#subHeader").addClass("subHeaderAnimationCondition");
-				$("#contentAnimation1").addClass("contentAnimation1");
+				$("#gradeListView").addClass("contentAnimation1");
 			 }
-			 $timeout(function(){
-				 $ionicLoading.show()
-			 },100)
+			 $ionicLoading.show()
 		 }
 		 var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
 		 NotasService.TodasNotas(studentId).then(
 					function success(resp) {
-						$(".slideUp1:eq(0)").hide();
-						var response = { grades : resp, isUpdate : true , lastUpdateDate : new Date()};
-						window.localStorage.setItem("grades", JSON.stringify(response));
-						$timeout(function(){
-							$scope.$broadcast('scroll.refreshComplete');
-							$ionicLoading.hide();
-						},550)
-						$timeout(function(){
-							
-							$scope.dto = response;
-							
-						},560)
-						$timeout(function(){
-							 $(".slideUp1:eq(0)").fadeIn(1000);
-							$("#subHeader").animate({
-						            'top': '64px',
-						            }, {duration: 'slow', queue: false}).fadeIn(1700);
-							if(isPushToFrefresh || !firstime){
-								 $("#contentAnimation1").show();
-							}else{
-								$("#contentAnimation1").animate({
-									'top': '41px',
-								}, {duration: 'slow', queue: false}).fadeIn(1000);
-								$("#contentAnimation1").removeClass("contentAnimation1");
-								firstime = false;
-							}
-						    $("#subHeader").removeClass("subHeaderAnimationCondition");
-							
-						 },580)
-				},  function error(resp){
-						console.log("fecthing GRADES error response", resp)
-						console.log("error retrive grades: "+ JSON.stringify(resp));
-						$ionicLoading.hide();
+						$scope.isFetching = false;
+						$scope.errorMessage = null;
 						$scope.$broadcast('scroll.refreshComplete');
+						$ionicLoading.hide();
+						$scope.dto = resp;
+						$timeout(function(){
+							 $(".slideUp1").hide();
+							 $(".slideUp1").fadeIn(1000);
+							 if(isPushToFrefresh || !firstime){
+								 $("#gradeListView").show();
+							 }else{
+								 $("#gradeListView").animate({
+									 'top': '40px',
+								 }, {duration: 'slow', queue: false}).fadeIn(1000);
+								 $("#gradeListView").removeClass("contentAnimation1");
+								 firstime = false;
+							 }
+						 },50)
+				},  function error(resp){
+					$scope.isFetching = false;
+					console.log("Resp", resp)
+					$scope.$broadcast('scroll.refreshComplete');
+					$ionicLoading.hide();
+					$scope.errorMessage = resp.errorMessage;
+					$scope.dto = resp.cache;
+					$timeout(function(){
+						 $(".slideUp1").hide();
+						 $(".slideUp1").fadeIn(1000);
+						 if(isPushToFrefresh || !firstime){
+							 $("#gradeListView").show();
+						 }else{
+							 $("#gradeListView").animate({
+								 'top': '40px',
+							 }, {duration: 'slow', queue: false}).fadeIn(1000);
+							 $("#gradeListView").removeClass("contentAnimation1");
+							 firstime = false;
+						 }
+					 },50)
 				});
 	}
-	$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
+	$scope.$on( "$ionicView.afterEnter", function( scopes, states ) {
 		if(states.stateName == "menu.notas"){
-			$rootScope.sideMenuController.canDragContent(false);
+			$rootScope.sideMenuController.canDragContent(true);
 //			$('.appHeader').removeClass("shadowed");
 			fetch();
         }
@@ -66,7 +68,6 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 	var firstime = true;
 	function fetch(isPushToFrefresh){
 		 var day = new Date().getDay();
-		 $scope.initialSlide = day == 0 ? 6 : day -1;
 		 if(!isPushToFrefresh){
 			 $("#contentAnimation").hide();
 			 if(firstime){
@@ -78,21 +79,19 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 		var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
 		QuadroDeHorarioSevice.obterQuadroDeHorario(studentId).then(
 				function success(resp) {
-					var response = {scheduleGrid : resp , isUpdated: true ,lastUpdateDate : new Date()};
-					window.localStorage.setItem("scheduleGrid", JSON.stringify(response));
+					$scope.errorMessage = null;
+					$scope.$broadcast('scroll.refreshComplete');
+					$ionicLoading.hide();
+					$scope.dto = resp;
 					$timeout(function(){
-						$scope.$broadcast('scroll.refreshComplete');
-						$ionicLoading.hide();
-					},350)
-					$timeout(function(){
-						$scope.dto = response;
+						$scope.events.trigger("render" , day == 0 ? 6 : day -1);
 						 $("#subHeader1").animate({
 					            'top': '64px',
 					            }, {duration: 'slow', queue: false}).fadeIn(1200);
 						 if(isPushToFrefresh || !firstime){
 							 $("#contentAnimation").show();
 							 $(".slideUp").hide();
-							 $(".slideUp").fadeIn(700);
+							 $(".slideUp").fadeIn(1000);
 						 }else{
 							 $("#contentAnimation").animate({
 								 'top': '128px',
@@ -101,18 +100,38 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 							 firstime = false;
 						 }
 						 $("#subHeader1").removeClass("subHeaderAnimationCondition");
-					},370)
+					},50)
 			},  function error(resp){
-					 console.log("error retrive scheduleGrid: "+ JSON.stringify(resp));
-					 $ionicLoading.hide();
-					 $scope.$broadcast('scroll.refreshComplete');
+				console.log("Resp", resp)
+				$scope.$broadcast('scroll.refreshComplete');
+				$ionicLoading.hide();
+				$scope.errorMessage = resp.errorMessage;
+				$scope.dto = resp.cache;
+				$timeout(function(){
+					$scope.events.trigger("render" , day == 0 ? 6 : day -1);
+					 $("#subHeader1").animate({
+				            'top': '64px',
+				            }, {duration: 'slow', queue: false}).fadeIn(1200);
+					 if(isPushToFrefresh || !firstime){
+						 $("#contentAnimation").show();
+						 $(".slideUp").hide();
+						 $(".slideUp").fadeIn(1000);
+					 }else{
+						 $("#contentAnimation").animate({
+							 'top': '128px',
+						 }, {duration: 'slow', queue: false}).fadeIn(1000);
+						 $("#contentAnimation").removeClass("contentAnimation");
+						 firstime = false;
+					 }
+					 $("#subHeader1").removeClass("subHeaderAnimationCondition");
+				},50)
 			})
 	}
-	$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
+	$scope.$on( "$ionicView.afterEnter", function( scopes, states ) {
         if(states.stateName == "menu.aulas") {
         	$rootScope.sideMenuController.canDragContent(false);
         	$('.appHeader').removeClass("shadowed");
-        	fetch();
+        		fetch();
         }
 	});
 	$scope.fetch = fetch;
@@ -120,24 +139,19 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 })
 
 trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistory, LoginService, PushNotificationService) {
-	 var username =""; 
-	 var password ="";	 
+	 $scope.username = null; 
+	 $scope.password = null;	 
+	 $scope.selectedInstitution = null;
+	 $scope.institutions = [{value: "TRIGA" , name :"TRIGA(TESTE)"}, {value: "ALQUIMIA", name:"ALQUIMIA "}];
 	 if(!isProd){			 
-		  switch(LoginService.getInstitution()){
-		  	case 'ALQUIMIA' :
-		  		username = "bferreira.info@gmail.com";
-		  		break;
-		  	case 'TRIGA' :
-		  		username = "bferreira.info@gmail.com";
-	  			password = "123";
-		  		break;
-		  }
+  		$scope.username = "bferreira.info@gmail.com";
+  		$scope.password = "123";
+  		$scope.selectedInstitution = {value: "TRIGA" , name :"TRIGA(TESTE)"};
 	  }
 		
-	  $scope.user = { institution: LoginService.getInstitution(), username: username , password : password};
 	  $scope.show = false;
-	  $scope.signIn = function(user) {
-			  LoginService.login(user.username, user.password).then(
+	  $scope.signIn = function(username,password,selectedInstitution) {
+		  LoginService.login(username,password,selectedInstitution.value).then(
 					  function success(resp) {
 						  if(isEmpty(resp)){
 							  console.log("login response: ", resp);
@@ -158,23 +172,23 @@ trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistor
 							  
 							  if(ionic.Platform.isWebView()){
 								  
-							  var institutionName = resp.appConfig.instituionName.toLowerCase();
-							  var url = "http://trigaportal-trigaserver.rhcloud.com/institutionsLogos/institutionSmallIcon/" + institutionName + '_small_icon.png';
-							  var fileDir = cordova.file.dataDirectory;
-							  var fileName = 'institution_small_icon.png'
-							  var targetPath = fileDir + fileName;
+//							  var institutionName = resp.appConfig.instituionName.toLowerCase();
+//							  var url = "http://trigaportal-trigaserver.rhcloud.com/institutionsLogos/institutionSmallIcon/" + institutionName + '_small_icon.png';
+//							  var fileDir = cordova.file.dataDirectory;
+//							  var fileName = 'institution_small_icon.png'
+//							  var targetPath = fileDir + fileName;
 							  
 //							  window.resolveLocalFileSystemURL(targetPath, console.log("starting verification"), function downloadAsset() {
-								var fileTransfer = new FileTransfer();
-								fileTransfer.download(url, targetPath, 
-									function(entry) {
-										console.log("Success!");
-										console.log("file downloaded")
-									}, 
-									function(err) {
-										console.log("Error");
-										console.dir(err);
-									});
+//								var fileTransfer = new FileTransfer();
+//								fileTransfer.download(url, targetPath, 
+//									function(entry) {
+//										console.log("Success!");
+//										console.log("file downloaded")
+//									}, 
+//									function(err) {
+//										console.log("Error");
+//										console.dir(err);
+//									});
 //							  });
 							  }
 							  
@@ -222,34 +236,68 @@ trigaApp.controller('loadingDataCtrl', function($scope, $state, $timeout, LoginS
 })
 
 trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, ControleDeFaltasService, $ionicLoading,$timeout) {
+	var firstime = true;
 	function fetch(isPushToFrefresh){
-		 if(!isPushToFrefresh){
-			 $ionicLoading.show({template: '<ion-spinner icon="android"></ion-spinner>', noBackdrop: true})
+		$scope.isFetching = true;
+		if(!isPushToFrefresh){
+			$("#controleDeFaltaView").hide();
+			 if(firstime){
+				$("#controleDeFaltaView").addClass("contentAnimation");
+			 }
+			 $ionicLoading.show()
 		 }
 		ControleDeFaltasService.findAll().then(
 			function success(resp) {
-				$scope.dto = resp;
-				$ionicLoading.hide();
+				$scope.isFetching = false;
+				$scope.errorMessage = null;
 				$scope.$broadcast('scroll.refreshComplete');
+				$ionicLoading.hide();
+				$scope.dto = resp;
+				$timeout(function(){
+					 if(isPushToFrefresh || !firstime){
+						 $("#controleDeFaltaView").show();
+						 $(".slideUp1").hide();
+						 $(".slideUp1").fadeIn(1000);
+					 }else{
+						 $("#controleDeFaltaView").animate({
+							 'top': '20px',
+						 }, {duration: 'slow', queue: false}).fadeIn(1000);
+						 $("#controleDeFaltaView").removeClass("contentAnimation");
+						 firstime = false;
+					 }
+				},50)
 		},  function error(resp){
-				$scope.dto = resp;
-				$ionicLoading.hide();
-				$scope.$broadcast('scroll.refreshComplete');
+			$scope.isFetching = false;
+			$scope.$broadcast('scroll.refreshComplete');
+			$ionicLoading.hide();
+			$scope.errorMessage = resp.errorMessage;
+			$scope.dto = resp.cache;
+			$timeout(function(){
+				 if(isPushToFrefresh || !firstime){
+					 $("#controleDeFaltaView").show();
+					 $(".slideUp1").hide();
+					 $(".slideUp1").fadeIn(1000);
+				 }else{
+					 $("#controleDeFaltaView").animate({
+						 'top': '20px',
+					 }, {duration: 'slow', queue: false}).fadeIn(1000);
+					 $("#controleDeFaltaView").removeClass("contentAnimation");
+					 firstime = false;
+				 }
+			},50)
 		});
 	}
-	$scope.$on( "$ionicView.enter", function( scopes, states) {
+	$scope.$on( "$ionicView.afterEnter", function( scopes, states) {
 		if(states.stateName == "menu.controleDeFaltas" ) {
 			$rootScope.sideMenuController.canDragContent(true);
-//			$('.appHeader').addClass("shadowed");
 			fetch();
 		}
 	});
-	fetch();
 	$scope.fetch = fetch;
 	
 	$scope.addFalta = function(cadeiraId){
 		ControleDeFaltasService.addFalta(cadeiraId).then(function(resp) {
-			 $.map($scope.dto.faults, function(val) {
+			 $.map($scope.dto.data, function(val) {
 				 if(val.cadeira.id == cadeiraId){
 					 val.telaFaltasControlePessoal.push(resp);
 				 }
@@ -259,13 +307,11 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, Control
 	
 	$scope.subFalta = function(cadeiraId){
 		ControleDeFaltasService.subFalta(cadeiraId).then(function success(resp) {
-			if(resp.hasError == false && resp.data == true){
-				 $.map($scope.dto.faults, function(val) {
-					 if(val.cadeira.id == cadeiraId ){
-						 val.telaFaltasControlePessoal.pop();
-					 }
-				 });
-			}
+			 $.map($scope.dto.data, function(val) {
+				 if(val.cadeira.id == cadeiraId ){
+					 val.telaFaltasControlePessoal.pop();
+				 }
+			 });
 		});
 	}
 		
@@ -321,7 +367,7 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
 	    	//
 	    });;
 	  };
-	$scope.$on( "$ionicView.enter", function( scopes, states) {
+	$scope.$on( "$ionicView.afterEnter", function( scopes, states) {
 		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
 		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
 		var targetPath = fileDir + fileName;
@@ -405,3 +451,4 @@ function isEmpty(obj){
 	}
 	return false;
 }
+

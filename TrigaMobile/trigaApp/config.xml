@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget id="com.ionicframework.trigaapp480777" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.triga.student" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
   <name>Triga Aluno</name>
   <author email="educatec@educatec.com" href="http://educatec.com/">&#xD;
 		Educatec&#xD;
@@ -73,5 +73,8 @@
   </feature>
   <feature name="Splashscreen">
     <param name="id" value="org.apache.cordova.splashscreen"/>
+  </feature>
+  <feature name="NetworkStatus">
+    <param name="android-package" value="org.apache.cordova.NetworkManager" />
   </feature>
 </widget>

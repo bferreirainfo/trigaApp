@@ -1,4 +1,4 @@
-<ion-view title="Controle de Faltas">
+<ion-view id="controleDeFaltaView" class="contentAnimation" title="Controle de Faltas" style="background: #f1f1f1;">
   <ion-nav-buttons side="right" > 
 		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
 			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
@@ -6,10 +6,47 @@
 			</span>
 		</button>
    </ion-nav-buttons>
-  <ion-content has-bouncing="true" style="background: #f1f1f1;padding:25px 15px 0 15px;" class="centralized" >
-  <a id="warning" ng-if="dto.isUpdated == false"  class="card" style="font-size: 16px;padding:4px;display: block;margin-top:1px;" ><span class="ion-alert-circled" style="color: #D9261F;"></span>  Ultima atualizaÃ§Ã£o: {{dto.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}<span class="ion-help-circled" style="float: right;" ></span></a>
-     <div class="list" style="max-width:400px;" >
-	  	<div ng-repeat="falta in dto.faults" ng-model="dto" >
+  <ion-content has-bouncing="true" style="background: #f1f1f1;" class="centralized" >
+  	  <ion-scroll  style="height:100%;"  has-bouncing="true" >
+         		  <ion-refresher
+				    pulling-text="Puxe para atualizar!"
+				    pulling-icon="ion-arrow-down-c"
+				    spinner="android"
+				    on-refresh="fetch(true);">
+				  </ion-refresher>
+        <div class="slideUp1" >
+			<div ng-if="errorMessage">
+		  		<md-subheader class="boldCondensed noPM" style="font-size: 16px; background: #FE5959;width: 100%;right:0px;">
+    				 <md-list-item class="md-3-line noPM">
+	           			<div class="md-avatar" style="background: white;">
+							  	<i class="icon ion-wifi"  style="font-size:25px;position: relative;top: 7px;left: 9px;color:#FE5959"></i>
+				        </div>
+				        <div class="md-list-item-text">
+                             <h3 class="row noPM" style="line-height: initial;margin: 0px" >
+                             		<div class="boldCondensed" style="width: 85%;line-height: initial;">
+                             			{{errorMessage.title}}
+                             		</div>
+                         	  </h3>
+                         	  <h3 class="row noPM" style="line-height: initial;margin: 0px" >
+                       	  	<p style="line-height: initial;margin: 0px">
+							 	{{errorMessage.description}}
+						 	</p>
+						  </h3>
+                         	  <h3 class="row noPM" style="line-height: initial;margin: 0px" >
+                        	  	<p style="color:white;" style="line-height: initial;margin: 0px">
+							 	Ultima atualização: <span class="boldCondensed">{{errorMessage.lastUpdateDate | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+					 		</p>
+						  </h3>
+						  </div>
+					  </md-list-item>
+	    		</md-subheader>
+	 		</div>
+	 		<div ng-if="dto.data == null && isFetching == false" style="margin-top: 30%;margin-bottom: 20%;text-align: center;">
+				<div class="ion-clipboard" style="font-size: 100px;"></div>
+				<div style="font-size: 20px;">Nenhuma falta!</div>
+			  </div>
+     <div class="list" style="max-width:400px;padding: 20px 15px;" >
+	  	<div ng-repeat="falta in dto.data" ng-model="dto" >
 	  		<div class="card backgroundInstitution2 padding" style="font-size: 20px;margin: 1px;">
 			  		{{falta.cadeira.nome}}
 	  		</div>
@@ -18,24 +55,24 @@
 				  	<div style="width:60%;">
 				  		<div style="font-size: 14px;">
 					  		 <div class="row noPM">
-				                <div style="width: 85%;">Professor</div>
+				                <div style="width: 70%;">Professor</div>
 				                <div style="width: 15%;">{{falta.telaFaltas.length}}</div>
 				            </div>
 					  		 <div class="row noPM">
-					  		 	    <div style="width: 85%;">Controle Pessoal</div>
+					  		 	    <div style="width: 70%;">Controle Pessoal</div>
 				                <div style="width: 15%;">{{falta.telaFaltasControlePessoal.length}}</div>
 				            </div>
 					  		 <div class="row noPM">
-					  		 	    <div style="width: 85%;">Limite</div>
+					  		 	    <div style="width: 70%;">Limite</div>
 				                <div style="width: 15%;">20</div>
 				            </div>
 				  		</div>
 			  		</div>
-			  		<div style="width: 40%;padding: 10px">
+			  		<div style="width: 40%;padding: 10px;">
 				  		<div  style="width: 30%; white-space: nowrap;" >
 				  		<div class="row noPM">
-				  			<md-button type="submit" ng-click="addFalta(falta.cadeira.id)" ng-disabled=" dto.isUpdated == false" class="md-raised button-block" style="background: rgb(52, 127, 127);height:50px;min-width: 44px;color:white;font-size:20px;">+</md-button>
-				  			<md-button type="submit" ng-click="subFalta(falta.cadeira.id)" ng-disabled=" dto.isUpdated == false || falta.telaFaltasControlePessoal.length == 0" class="md-raised button-block" style="min-width: 44px;background: rgb(250, 16, 16);height:50px;margin-left:10px;color:white;font-size:20px">-</md-button>
+				  			<md-button type="submit" ng-click="addFalta(falta.cadeira.id)" ng-disabled="errorMessage" class="md-raised button-block" style="background: rgb(52, 127, 127);height:50px;min-width: 44px;color:white;font-size:20px;">+</md-button>
+				  			<md-button type="submit" ng-click="subFalta(falta.cadeira.id)" ng-disabled="errorMessage || falta.telaFaltasControlePessoal.length == 0" class="md-raised button-block" style="min-width: 44px;background: rgb(250, 16, 16);height:50px;margin-left:10px;color:white;font-size:20px">-</md-button>
 				  		 </div>
 				  		</div>
 			  		</div>
@@ -45,5 +82,7 @@
 	</div>
 	<br/>
 	<br/>
+	</div>
+	</ion-scroll>
   	</ion-content>
 </ion-view>

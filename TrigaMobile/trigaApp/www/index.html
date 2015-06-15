@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html ng-app="trigaApp">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Security-Policy" name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=yes, width=device-width">
-        
-        
-<!-- 		<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: http://trigaportal-trigaserver.rhcloud.com; style-src 'self' 'unsafe-inline'; media-src *"> -->
+        <meta http-equiv="Content-Security-Policy" charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width">
 
         <title>Triga Mobile</title>
         <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
@@ -18,15 +15,16 @@
         <script src="lib/ionic2/js/ionic.bundle.min.js"></script>
         <link href="lib/ionic2/css/ionic.min.css" rel="stylesheet">
        	<link href="lib/ionicons/css/ionicons.css" rel="stylesheet">
-		<link rel="stylesheet" href="css/Roboto.css" />
+		<link rel="stylesheet" href="css/roboto.css" />
 	    <script src="lib/js/angular/angular-resource.min.js"></script>
 	    
 		<!-- angular material -->
-		<link rel="stylesheet" href="lib/angularMaterial/angular-material.min.css">
-		<script src="lib/angularMaterial/angular-animate.min.js"></script>
-   		<script src="lib/angularMaterial/angular-aria.min.js"></script>
-   		<script src="lib/angularMaterial/angular-material.min.js"></script>
-   		<script src="lib/angularMaterial/hammer.min.js"></script>
+		<link rel="stylesheet" href="lib/angularMaterial2/angular-material.css">
+    	<script src="lib/angularMaterial2/angular-aria.js"></script>
+
+    	<!-- Angular Material Javascript using RawGit to load directly from `bower-material/master` -->
+   		 <script src="lib/angularMaterial2/angular-material.js"></script>
+
        
 		<!-- tabs -->
 		<link href="lib/tabbedSlideBox/tabSlideBox.css" rel="stylesheet"/>
@@ -41,7 +39,6 @@
 
 		<!-- PushNotification Plugin -->
 		<script type="text/javascript" src="lib/plugins/PushNotification.js"></script>
-		
 	     <!-- cordova -->
         <script src="cordova.js"></script>
     </head>

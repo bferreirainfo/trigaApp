@@ -52,7 +52,7 @@ angular.module('tabSlideBox', [])
 				}
 				
 				function renderScrollableTabs(){
-					var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
+					var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("button"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
 					var scrollDiv = wrap.querySelector(".scroll");
 					
 					angular.forEach(icons, function(value, key){
@@ -75,7 +75,7 @@ angular.module('tabSlideBox', [])
 					}
 				}
 				function setPosition(index){
-					var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("a"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
+					var iconsDiv = angular.element(ta.querySelector(".tsb-icons")), icons = iconsDiv.find("button"), wrap = iconsDiv[0].querySelector(".tsb-ic-wrp"), totalTabs = icons.length;
 					var scrollDiv = wrap.querySelector(".scroll");
 					
 					var middle = iconsDiv[0].offsetWidth/2;
@@ -105,16 +105,19 @@ angular.module('tabSlideBox', [])
 				events.on('slideChange', function(data){
 					setPosition(data.index);
 				});
+				events.on('render', function(index){
+					$ionicSlideBoxDelegate.update();
+					if(index){
+						$timeout(function () { 
+							$ionicSlideBoxDelegate.slide(index,0);
+						},0);
+					}
+				});
 				events.on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
 					renderScrollableTabs();
 				});
-				attrs.$observe('whenready', function(dto){
-					$timeout(function () { 
-						if(dto){
-							renderScrollableTabs();
-						}
-					},150);
-	        	});
+				
+				renderScrollableTabs();
 			},
 			controller : function($scope, $attrs, $element) {
 				$scope.events = new SimplePubSub();
@@ -124,7 +127,7 @@ angular.module('tabSlideBox', [])
 				};
 				
 				$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-//					$scope.events.trigger("ngRepeatFinished", {"event" : ngRepeatFinishedEvent});
+					$scope.events.trigger("ngRepeatFinished", {"event" : ngRepeatFinishedEvent});
 				});
 			}
 		};

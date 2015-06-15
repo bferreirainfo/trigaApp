@@ -28,7 +28,7 @@
     position: relative;
 }
 
-.tabbed-slidebox .tsb-icons a {
+.tabbed-slidebox .tsb-icons button {
     display: inline-block;
     width: auto;
     font-size: 3.5em;
@@ -36,7 +36,7 @@
     text-transform: uppercase;
 }
 
-.tabbed-slidebox .tsb-icons a.active {
+.tabbed-slidebox .tsb-icons button.active {
     color: rgb(255, 195, 8) !important;
     font-size: 3.5em;
 }
@@ -73,15 +73,15 @@
 .tsb-hscroll.scroll-view .scroll.onscroll{
 }
 
-.tabbed-slidebox .tsb-icons .scroll a{
+.tabbed-slidebox .tsb-icons .scroll button{
 	width:auto;
 	font-size: 1.5em;
 	line-height: 1.5em;
 	text-decoration: none;
 	border-bottom: 4px solid transparent;
-	padding: 37px 15px 0px 15px;
+	padding: 30px 15px 0px 15px;
 }
-.tabbed-slidebox .tsb-icons .scroll a.active {
+.tabbed-slidebox .tsb-icons .scroll button.active {
 	border-bottom: 6px solid rgb(255, 195, 8) !important;
 }
 .notificationIcon{

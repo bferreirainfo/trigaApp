@@ -2,8 +2,7 @@
 /* App Module */
 var trigaApp = angular.module('trigaApp', ['ionic','ngResource','ngMaterial','tabSlideBox']);
 trigaApp.config(function($mdThemingProvider) {
-//	$mdThemingProvider.theme("default").primaryPalette("orange").accentPalette("green");
-	$mdThemingProvider.theme("default").primaryColor("green").accentColor("orange");
+	$mdThemingProvider.theme('default').primaryPalette("orange").accentPalette("green");
 });
 
 trigaApp.config(function($stateProvider, $urlRouterProvider) {
@@ -144,10 +143,11 @@ trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,
 					break;
 				case "defaultPage":
 					$location.path("/menu/" + JSON.parse(window.localStorage.getItem("appConfig")).defaultPage);
-//					$location.path("/menu/quadroDeHorarios");
+//					$location.path("/menu/" + "controleDeFaltas");
 					break;
 				case "firstTime": 
-					$location.path("/chooseInstitution");
+					console.log("firstTime")
+					$location.path("/login");
 					break;
 			}
 			
