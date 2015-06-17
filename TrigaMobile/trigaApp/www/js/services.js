@@ -67,7 +67,7 @@ trigaApp.service('NotasService', function($q,$resource) {
 	 return {
 	        TodasNotas: function(studentId) {
 	    		var regResource = $resource(apiUrl+':action?alunoId=:alunoId&institution=:institution', 
-	    								   {action: "notas", alunoId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName},{ 'get':  {method: 'GET', isArray : true, timeout: 5000} });
+	    								   {action: "notas", alunoId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName},{ 'get':  {method: 'GET', timeout: 2000} });
 	            var q = $q.defer();
 	            fecthData(q,regResource, 'get',"grades");
 	            return q.promise;
@@ -82,7 +82,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
 			var faltasResource = $resource(apiUrl+':action?studentId=:studentId&institution=:institution',
-										  {action: "faltas" , studentId: studentId, institution: institutionName}, { 'get':  {method: 'GET', isArray : true, timeout: 5000} });
+										  {action: "faltas" , studentId: studentId, institution: institutionName}, { 'get':  {method: 'GET', timeout: 2000} });
 			fecthData(q,faltasResource, 'get',"faults");
 			return q.promise;
 		},
@@ -109,7 +109,7 @@ trigaApp.service('QuadroDeHorarioSevice', function($q,$resource) {
 	return {
 		obterQuadroDeHorario: function(studentId) {
 			var quadroDeHorarioResource = $resource(apiUrl+':action?alunoId=:studentId&institution=:institution',
-												   { action: "quadroDeHorario" , studentId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName}, { 'get':  {method: 'GET', timeout: 5000} });
+												   { action: "quadroDeHorario" , studentId: studentId, institution: JSON.parse(window.localStorage.getItem("appConfig")).instituionName}, { 'get':  {method: 'GET', timeout: 2000} });
 			var q = $q.defer();
 			fecthData(q,quadroDeHorarioResource, 'get',"scheduleGrid");
 			return q.promise;
@@ -193,18 +193,31 @@ function isCacheExpired(serviceName){
 function fecthData(qDefered,resource,methodName,storageKey, tries){
 	if(connectionStatus()){
 		var isFirstTime = tries == null;
-		isFirstTime ? tries = 0 : tries++;
+		isFirstTime ? tries = 1 : tries++;
+		//this method above tries to fetch the data based on the resource and methodName
 		resource[methodName](function(resp) {
 	    	removePromiseProperties(resp);
-	    	var response = {data : resp ,lastUpdateDate : new Date()};
-	    	if(storageKey)
-			window.localStorage.setItem(storageKey, JSON.stringify(response));
-	    	qDefered.resolve(response);
+	    	console.log("RESPONSE " + JSON.stringify(resp));
+	    	if(resp.status != null){
+	    		var response = {data : resp.data ,lastUpdateDate : new Date()};
+	    		if(storageKey)
+	    			window.localStorage.setItem(storageKey, JSON.stringify(response));
+	    		qDefered.resolve(response);
+	    	}else if(tries == 3){
+	    			var err = {cache : null, status: null, errorMessage: null};
+	    			if(storageKey)
+	    			err.cache = JSON.parse(window.localStorage.getItem(storageKey));
+	    			err.status = noConnectionError;
+	    			err.errorMessage = {title: "Não foi possível conectar" , description: "Verifique sua conexão e tente novamente.", lastU0pdateDate: err.cache ? err.cache.lastUpdateDate : "nunca atualizado"};
+	    			qDefered.reject(err);
+    		}else{
+    			fecthData(qDefered,resource,methodName,storageKey,tries);
+    		}
 	    }, function(err) {
 	    	var isTimeOutError = err.status == 0 && err.data == null;
 	    	if(isTimeOutError){
-	    		console.log("THE TRIES THO,THE TRIES...", tries)
-	    		if(tries > 3){
+	    		console.log("THE TRIES THO,THE TRIES..." + tries)
+	    		if(tries == 3){
 	    			if(storageKey)
 	    			err.cache = JSON.parse(window.localStorage.getItem(storageKey));
 	    			err.status = timeoutError;
@@ -249,4 +262,14 @@ function connectionStatus(){
 	 }else{
 		 return true;
 	 }
+}
+
+function objToString (obj) {
+    var str = '';
+    for (var p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            str += obj[p];
+        }
+    }
+    return str;
 }

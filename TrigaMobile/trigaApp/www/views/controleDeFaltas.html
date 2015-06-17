@@ -52,28 +52,28 @@
 	  		</div>
 		  	<div class="card padding" style="height: 90px;margin: 1px 1px 15px 1px;" >
 			  	<div class="row noPM">
-				  	<div style="width:60%;">
+				  	<div style="width:55%;">
 				  		<div style="font-size: 14px;">
 					  		 <div class="row noPM">
-				                <div style="width: 70%;">Professor</div>
+				                <div style="width: 85%;">Professor</div>
 				                <div style="width: 15%;">{{falta.telaFaltas.length}}</div>
 				            </div>
 					  		 <div class="row noPM">
-					  		 	    <div style="width: 70%;">Controle Pessoal</div>
+					  		 	<div style="width: 85%;">Controle Pessoal</div>
 				                <div style="width: 15%;">{{falta.telaFaltasControlePessoal.length}}</div>
 				            </div>
 					  		 <div class="row noPM">
-					  		 	    <div style="width: 70%;">Limite</div>
+					  		 	<div style="width: 85%;">Limite</div>
 				                <div style="width: 15%;">20</div>
 				            </div>
 				  		</div>
 			  		</div>
-			  		<div style="width: 40%;padding: 10px;">
-				  		<div  style="width: 30%; white-space: nowrap;" >
-				  		<div class="row noPM">
-				  			<md-button type="submit" ng-click="addFalta(falta.cadeira.id)" ng-disabled="errorMessage" class="md-raised button-block" style="background: rgb(52, 127, 127);height:50px;min-width: 44px;color:white;font-size:20px;">+</md-button>
-				  			<md-button type="submit" ng-click="subFalta(falta.cadeira.id)" ng-disabled="errorMessage || falta.telaFaltasControlePessoal.length == 0" class="md-raised button-block" style="min-width: 44px;background: rgb(250, 16, 16);height:50px;margin-left:10px;color:white;font-size:20px">-</md-button>
-				  		 </div>
+			  		<div  style="width: 45%;">
+				  		<div  style="white-space: nowrap;" >
+					  		<div style="width: 10px;">
+					  			<md-button type="submit" ng-click="addFalta(falta.cadeira.id)" ng-disabled="errorMessage" class="md-raised button-block" style="background: rgb(52, 127, 127);height:50px;min-width: 44px;color:white;font-size:20px;">+</md-button>
+					  			<md-button type="submit" ng-click="subFalta(falta.cadeira.id)" ng-disabled="errorMessage || falta.telaFaltasControlePessoal.length == 0" class="md-raised button-block" style="min-width: 44px;background: rgb(250, 16, 16);height:50px;margin-left:10px;color:white;font-size:20px">-</md-button>
+					  		 </div>
 				  		</div>
 			  		</div>
 			  	</div>

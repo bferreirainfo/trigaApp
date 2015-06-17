@@ -34,7 +34,6 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 						 },50)
 				},  function error(resp){
 					$scope.isFetching = false;
-					console.log("Resp", resp)
 					$scope.$broadcast('scroll.refreshComplete');
 					$ionicLoading.hide();
 					$scope.errorMessage = resp.errorMessage;
@@ -102,7 +101,6 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 						 $("#subHeader1").removeClass("subHeaderAnimationCondition");
 					},50)
 			},  function error(resp){
-				console.log("Resp", resp)
 				$scope.$broadcast('scroll.refreshComplete');
 				$ionicLoading.hide();
 				$scope.errorMessage = resp.errorMessage;
@@ -287,6 +285,7 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, Control
 			},50)
 		});
 	}
+	
 	$scope.$on( "$ionicView.afterEnter", function( scopes, states) {
 		if(states.stateName == "menu.controleDeFaltas" ) {
 			$rootScope.sideMenuController.canDragContent(true);
@@ -368,8 +367,10 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
 	    });;
 	  };
 	$scope.$on( "$ionicView.afterEnter", function( scopes, states) {
-		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
-		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
+//		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
+		var fileDir =  "img/";
+//		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
+		var fileName =  "triga3.jpg"
 		var targetPath = fileDir + fileName;
 		$scope.institutionIcon = targetPath;
 		if( states.stateName == "menu.notifications" ) {

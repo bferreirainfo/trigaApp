@@ -43,7 +43,7 @@
 					    <md-list-item ng-style="{ 'background' : ($index % 2 == 1 ? 'rgba(245, 245, 220, 0.3)':'white')}" class="md-3-line" ng-repeat="nota in dto.data track by $index">
 		           			<div class="md-avatar" style="background: rgb(232, 232, 232)">
 								  	<i class="icon"  style="font-size:25px;position: relative;top: 7px;left: -5px;"
-								  	   ng-class="{'reprovedSymbol ion-android-close' : nota.media <= 3 || nota.mediaFinal < 5, 
+								  	   ng-class="{'reprovedSymbol ion-android-close' : nota.media < 3 || nota.mediaFinal < 5, 
 								  			'aprovedSymbol ion-android-done-all' : nota.media >= 7, 
 								  			'aprovedFinalSymbol ion-android-done' : nota.mediaFinal >= 5, 
 								  			'waitingSymbol ion-android-time' : nota.media == null }"
