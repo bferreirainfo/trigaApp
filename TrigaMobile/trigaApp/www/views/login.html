@@ -5,7 +5,7 @@
 		<div class="centralized" style="margin-bottom: 0px;text-align: center;font-size: 12px;" >
 			<div class="centralized" style="background-size: 145px 145px !important;width: 145px;height:145px;background: url(img/triga3.jpg) no-repeat center center;"></div>
 		</div>
-		<form ng-submit="signIn(username,password,selectedInstitution)">
+		<form ng-submit="signIn($event,username,password,selectedInstitution)">
 			<div style="padding: 20px;">
 		        <label  style="font-size: 20px !important;"><i class="icon ion-podium" style="margin-right: 10px;"></i>Instituição</label>
 		        <md-select required="" ng-model="selectedInstitution" md-on-open="loadIntitutions()" style="min-width: 200px;width:100%;">

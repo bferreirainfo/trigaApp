@@ -89,7 +89,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 		addFalta: function(cadeiraId) {
 			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
-			var addFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "addFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', isArray : false} });
+			var addFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "addFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', timeout: 1000} });
 			var q = $q.defer();
 			fecthData(q,addFaltaResource, 'get');
 			return q.promise;
@@ -97,7 +97,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 		subFalta: function(cadeiraId) {
 			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
-			var subFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "subFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', isArray : false} });
+			var subFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "subFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', timeout: 1000} });
 			var q = $q.defer();
 			fecthData(q,subFaltaResource, 'get');
 			return q.promise;

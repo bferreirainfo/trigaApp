@@ -136,7 +136,7 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 	$scope.updateFn = fetch;
 })
 
-trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistory, LoginService, PushNotificationService) {
+trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $timeout, $ionicHistory, LoginService, PushNotificationService) {
 	 $scope.username = null; 
 	 $scope.password = null;	 
 	 $scope.selectedInstitution = null;
@@ -146,18 +146,23 @@ trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistor
   		$scope.password = "123";
   		$scope.selectedInstitution = {value: "TRIGA" , name :"TRIGA(TESTE)"};
 	  }
-		
 	  $scope.show = false;
-	  $scope.signIn = function(username,password,selectedInstitution) {
+	  $scope.signIn = function(ev,username,password,selectedInstitution) {
+		// Appending dialog to document.body to cover sidenav in docs app
+		    // Modal dialogs should fully cover application
+		    // to prevent interaction outside of dialog
+			$mdDialog.show(
+				      $mdDialog.alert()
+				        .title('Efetuando login.')
+				        .content('Aguarde um momento...')
+				        .targetEvent(ev)
+				    );
 		  LoginService.login(username,password,selectedInstitution.value).then(
 					  function success(resp) {
+						  $mdDialog.hide();
 						  if(isEmpty(resp)){
-							  console.log("login response: ", resp);
 							  window.localStorage.setItem("appConfig", JSON.stringify(resp.appConfig));
 							  window.localStorage.setItem("studentPerfil", JSON.stringify(resp.perfil));
-
-							 
-							  
 							  //
 							  //registerNewDevice + teste notification
 							  if(ionic.Platform.isWebView())
@@ -195,7 +200,13 @@ trigaApp.controller('LoginCtrl', function($scope, $state, $timeout, $ionicHistor
 							  console.log(JSON.stringify(resp.appConfig));
 							  $state.go('menu.'+ resp.appConfig.defaultPage);
 						  }else{
-							  alert("Dados incorretos");
+							  $timeout(function(){
+								  $mdToast.show($mdToast.simple()
+									        .content('Email ou senha incorretos')
+									        .position("bottom right")
+									        .hideDelay(1000));
+							  },400)
+							 
 						  }
 					  }, function error(resp){
 					});
@@ -233,7 +244,7 @@ trigaApp.controller('loadingDataCtrl', function($scope, $state, $timeout, LoginS
 	  }
 })
 
-trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, ControleDeFaltasService, $ionicLoading,$timeout) {
+trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, $mdToast, ControleDeFaltasService, $ionicLoading,$timeout) {
 	var firstime = true;
 	function fetch(isPushToFrefresh){
 		$scope.isFetching = true;
@@ -293,19 +304,38 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, Control
 		}
 	});
 	$scope.fetch = fetch;
-	
 	$scope.addFalta = function(cadeiraId){
-		ControleDeFaltasService.addFalta(cadeiraId).then(function(resp) {
+		ControleDeFaltasService.addFalta(cadeiraId).then(function success(resp) {
+			 $mdToast.show(
+				      $mdToast.simple()
+				        .content('Falta adicionada')
+				        .position("bottom right")
+				        .hideDelay(500)
+				    );
 			 $.map($scope.dto.data, function(val) {
 				 if(val.cadeira.id == cadeiraId){
 					 val.telaFaltasControlePessoal.push(resp);
 				 }
 			 });
+		},function error(resp){
+			console.log(JSON.stringify(resp));
+			 $mdToast.show(
+			      $mdToast.simple()
+			        .content(resp.errorMessage.title + "  " + resp.errorMessage.description)
+			        .position("bottom right")
+			        .hideDelay(1000)
+			    );
 		});
 	};
 	
 	$scope.subFalta = function(cadeiraId){
 		ControleDeFaltasService.subFalta(cadeiraId).then(function success(resp) {
+			 $mdToast.show(
+				      $mdToast.simple()
+				        .content('Falta removida')
+				        .position("bottom right")
+				        .hideDelay(500)
+				    );
 			 $.map($scope.dto.data, function(val) {
 				 if(val.cadeira.id == cadeiraId ){
 					 val.telaFaltasControlePessoal.pop();

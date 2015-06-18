@@ -1,12 +1,12 @@
 <ion-slide>
-	<ion-scroll style="height:100%;"  has-bouncing="true" class="padding">
+	<ion-scroll style="height:100%;padding:0px 10px;"  has-bouncing="true">
 		<ion-refresher
 			    pulling-text="Puxe para atualizar..."
 			    pulling-icon="ion-arrow-down-c"
 			    spinner="android"
 			    on-refresh="fecthMethod({param : true});">
 		</ion-refresher>
-		<div class="slideUp" style="height:100%;" >
+		<div class="slideUp" style="height:100%;padding:15px 0px;" >
 			<div ng-if="schedule == ''"  class="colunaHorario padding" style="background: white;width: 100%;">
 				<img   src="img/sleeping.png" style="width:50%;height:109px;"> </img>
 			</div>
