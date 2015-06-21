@@ -106,7 +106,7 @@ trigaApp.config(function($stateProvider, $urlRouterProvider) {
 //})
 trigaApp.constant('$ionicLoadingConfig', {template: '<svg class="spinner-container" style="width:65px;height:65px;" viewBox="0 0 44 44" data-reactid=".0.1.0"><circle class="path" cx="22" cy="22" r="20" fill="none" stroke-width="4" data-reactid=".0.1.0.0"></circle></svg>', noBackdrop: true});
 trigaApp.config(function($ionicConfigProvider) {
-//	  $ionicConfigProvider.views.maxCache(0);
+	  $ionicConfigProvider.scrolling.jsScrolling(!ionic.Platform.isWebView());
 });
 var isProd;
 trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,$timeout,$rootScope) {

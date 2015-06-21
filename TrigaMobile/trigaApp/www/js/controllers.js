@@ -53,10 +53,9 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 					 },50)
 				});
 	}
-	$scope.$on( "$ionicView.afterEnter", function( scopes, states ) {
+	$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
 		if(states.stateName == "menu.notas"){
 			$rootScope.sideMenuController.canDragContent(true);
-//			$('.appHeader').removeClass("shadowed");
 			fetch();
         }
 	});
@@ -93,7 +92,7 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 							 $(".slideUp").fadeIn(1000);
 						 }else{
 							 $("#contentAnimation").animate({
-								 'top': '128px',
+								 'top': '101px',
 							 }, {duration: 'slow', queue: false}).fadeIn(1000);
 							 $("#contentAnimation").removeClass("contentAnimation");
 							 firstime = false;
@@ -109,14 +108,14 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 					$scope.events.trigger("render" , day == 0 ? 6 : day -1);
 					 $("#subHeader1").animate({
 				            'top': '64px',
-				            }, {duration: 'slow', queue: false}).fadeIn(1200);
+				            }, {duration: 'slow', queue: false, height: "easeOutBounce"}).fadeIn(1200);
 					 if(isPushToFrefresh || !firstime){
 						 $("#contentAnimation").show();
 						 $(".slideUp").hide();
 						 $(".slideUp").fadeIn(1000);
 					 }else{
 						 $("#contentAnimation").animate({
-							 'top': '128px',
+							 'top': '101px',
 						 }, {duration: 'slow', queue: false}).fadeIn(1000);
 						 $("#contentAnimation").removeClass("contentAnimation");
 						 firstime = false;
@@ -125,12 +124,18 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 				},50)
 			})
 	}
-	$scope.$on( "$ionicView.afterEnter", function( scopes, states ) {
+	$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
         if(states.stateName == "menu.aulas") {
         	$rootScope.sideMenuController.canDragContent(false);
         	$('.appHeader').removeClass("shadowed");
-        		fetch();
+    		fetch();
         }
+	});
+	$scope.$on( "$ionicView.leave", function( scopes, states ) {
+		if(states.stateName == "menu.aulas") {
+			$rootScope.sideMenuController.canDragContent(true);
+			$('.appHeader').addClass("shadowed");
+		}
 	});
 	$scope.fetch = fetch;
 	$scope.updateFn = fetch;
@@ -148,7 +153,7 @@ trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $ti
 	  }
 	  $scope.show = false;
 	  $scope.signIn = function(ev,username,password,selectedInstitution) {
-		// Appending dialog to document.body to cover sidenav in docs app
+		  	// Appending dialog to document.body to cover sidenav in docs app
 		    // Modal dialogs should fully cover application
 		    // to prevent interaction outside of dialog
 			$mdDialog.show(
@@ -160,9 +165,9 @@ trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $ti
 		  LoginService.login(username,password,selectedInstitution.value).then(
 					  function success(resp) {
 						  $mdDialog.hide();
-						  if(isEmpty(resp)){
-							  window.localStorage.setItem("appConfig", JSON.stringify(resp.appConfig));
-							  window.localStorage.setItem("studentPerfil", JSON.stringify(resp.perfil));
+						  if(isNotEmpty(resp.data)){
+							  window.localStorage.setItem("appConfig", JSON.stringify(resp.data.appConfig));
+							  window.localStorage.setItem("studentPerfil", JSON.stringify(resp.data.perfil));
 							  //
 							  //registerNewDevice + teste notification
 							  if(ionic.Platform.isWebView())
@@ -197,8 +202,8 @@ trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $ti
 							  
 							  
 							  
-							  console.log(JSON.stringify(resp.appConfig));
-							  $state.go('menu.'+ resp.appConfig.defaultPage);
+							  console.log(JSON.stringify(resp.data.appConfig));
+							  $state.go('menu.'+ resp.data.appConfig.defaultPage);
 						  }else{
 							  $timeout(function(){
 								  $mdToast.show($mdToast.simple()
@@ -206,9 +211,15 @@ trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $ti
 									        .position("bottom right")
 									        .hideDelay(1000));
 							  },400)
-							 
 						  }
 					  }, function error(resp){
+						  $mdDialog.hide();
+						  $mdToast.show(
+							      $mdToast.simple()
+							        .content(resp.errorMessage.title + "  " + resp.errorMessage.description)
+							        .position("bottom right")
+							        .hideDelay(1000)
+							    );
 					});
 	  };
 })
@@ -297,7 +308,7 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, $mdToas
 		});
 	}
 	
-	$scope.$on( "$ionicView.afterEnter", function( scopes, states) {
+	$scope.$on( "$ionicView.beforeEnter", function( scopes, states) {
 		if(states.stateName == "menu.controleDeFaltas" ) {
 			$rootScope.sideMenuController.canDragContent(true);
 			fetch();
@@ -318,7 +329,6 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, $mdToas
 				 }
 			 });
 		},function error(resp){
-			console.log(JSON.stringify(resp));
 			 $mdToast.show(
 			      $mdToast.simple()
 			        .content(resp.errorMessage.title + "  " + resp.errorMessage.description)
@@ -396,7 +406,7 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
 	    	//
 	    });;
 	  };
-	$scope.$on( "$ionicView.afterEnter", function( scopes, states) {
+	$scope.$on( "$ionicView.beforeEnter", function( scopes, states) {
 //		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
 		var fileDir =  "img/";
 //		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
@@ -476,7 +486,7 @@ trigaApp.controller('MenuCtrl', function($scope) {
 	$scope.showNotifications =  appConfig.studentFuncionalities.funcionalities.indexOf('NOTIFICATIONS') > -1;
 })
 
-function isEmpty(obj){
+function isNotEmpty(obj){
 	for(var key in obj) {
 		  if(obj.hasOwnProperty(key)) return true
 	}

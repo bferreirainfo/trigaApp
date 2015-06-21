@@ -1,17 +1,20 @@
 <ion-slide>
-	<ion-scroll style="height:100%;padding:0px 10px;"  has-bouncing="true">
+	<ion-scroll style="height:100%;padding:10px;"  has-bouncing="true">
 		<ion-refresher
 			    pulling-text="Puxe para atualizar..."
 			    pulling-icon="ion-arrow-down-c"
 			    spinner="android"
 			    on-refresh="fecthMethod({param : true});">
 		</ion-refresher>
-		<div class="slideUp" style="height:100%;padding:15px 0px;" >
-			<div ng-if="schedule == ''"  class="colunaHorario padding" style="background: white;width: 100%;">
-				<img   src="img/sleeping.png" style="width:50%;height:109px;"> </img>
+		<div class="slideUp" >
+			<div ng-if="schedule == ''"  class="padding" style="background: white;width: 100%;">
+				<div  style="text-align: center;">
+				<div class="ion-calendar" style="font-size: 100px;"></div>
+				<div style="font-size: 20px;">Nenhum horário!</div>
+		    </div>
 			</div>
 			<div class="colunaHorario padding" style="background: white;width: 100%;" ng-repeat="horario in schedule track by horario.cadeira">
-				<div style="font-size: 18px !important;color:rgb(29, 157, 146)" class="boldCondensed" >{{horario.cadeira}}</div>
+				<div style="font-size: 18px !important;color:rgb(29, 157, 146)"  >{{horario.cadeira}}</div>
 				<div class="row" style="height: auto;padding-top:10px" >
 					<div id="hour"   style="width: 120px;" >
 						<div class="circle" style="font-size: 20px !important;background: rgb(11, 101, 102);color:white;height:80px;width:80px;padding-top: 14px;padding-left:1px;">

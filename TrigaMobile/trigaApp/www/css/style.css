@@ -34,7 +34,7 @@ html,body {
 	padding-top: 12px !important;
 }
 .shadowed{
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
 .bar-header{
 	padding-left: 13px !important;
@@ -45,7 +45,7 @@ html,body {
 	font-family: Roboto !important;
 	font-size: 20px !important;
 	padding: 6px;
-	padding-left: 14px;
+	padding-left: 3px;
 }
 .redBackground{
 	background: red;
@@ -388,6 +388,7 @@ md-divider.md-default-theme {
 }
 .tabbedItemW{
 	/* width: 33% !important; */
+	color: rgba(0,0,0,0.26) !important;
 }
 .itemMenu >.icon{
 	color: white !important;

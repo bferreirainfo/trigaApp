@@ -1,17 +1,13 @@
 <ion-view title="Aulas" class="noPM" style="transform: translate3d(0em,0em,0em) !important;">
 	<!-- RIGHT BUTTONS -->
 	<ion-nav-buttons side="right" > 
-		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
-			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
-				<span ng-if="unsawNotficiationsSize > 0"  class="badge badge-assertive" style="left: 16px;top: -2px;font-size: 12px;position: absolute;">{{unsawNotficiationsSize}}</span>
-			</span>
-		</button>
+		<notificationnavbariconcomponent></notificationnavbariconcomponent>
 	</ion-nav-buttons>
 	<!-- SUBHEADER -->
-	<ion-header-bar  id="subHeader1" class="noPM subHeaderAnimationCondition" no-tap-scroll="true" style="height:64px !important;transform: translate3d(0em,0em,0em);" >
+	<ion-header-bar  id="subHeader1" class="noPM subHeaderAnimationCondition" no-tap-scroll="true" style="transform: translate3d(0em,0em,0em);border:none;height:37px;" >
 	       <tab-slide-box tab="{{initialSlide}}" class="noPM"  >
 			    	<div id="tsbIcons" class="tsb-icons backgroundInstitution1"  >
-			    		<div class="tsb-ic-wrp backgroundInstitution1 shadowed" style="height: 64px !important;" >
+			    		<div class="tsb-ic-wrp backgroundInstitution1 shadowed" >
 							<ion-scroll  direction="x" class="tsb-hscroll">
 								<md-button  class="boldCondensed noRadius tabbedItemW " >Segunda</md-button>
 								<md-button  class="boldCondensed noRadius tabbedItemW"  >Terça</md-button>

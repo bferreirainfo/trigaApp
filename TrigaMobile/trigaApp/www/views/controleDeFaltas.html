@@ -1,10 +1,6 @@
 <ion-view id="controleDeFaltaView" class="contentAnimation" title="Controle de Faltas" style="background: #f1f1f1;">
   <ion-nav-buttons side="right" > 
-		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
-			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
-				<span ng-if="unsawNotficiationsSize > 0"  class="badge badge-assertive" style="left: 16px;top: -2px;font-size: 12px;position: absolute;">{{unsawNotficiationsSize}}</span>
-			</span>
-		</button>
+		<notificationnavbariconcomponent></notificationnavbariconcomponent>
    </ion-nav-buttons>
   <ion-content has-bouncing="true" style="background: #f1f1f1;" class="centralized" >
   	  <ion-scroll  style="height:100%;"  has-bouncing="true" >
@@ -47,7 +43,7 @@
 			  </div>
      <div class="list" style="max-width:400px;padding: 20px 15px;" >
 	  	<div ng-repeat="falta in dto.data" ng-model="dto" >
-	  		<div class="card backgroundInstitution2 padding" style="font-size: 20px;margin: 1px;">
+	  		<div class="card backgroundInstitution2 padding" style="font-size: 20px;margin: 1px;color:rgb(11, 101, 102) !important;">
 			  		{{falta.cadeira.nome}}
 	  		</div>
 		  	<div class="card padding" style="height: 90px;margin: 1px 1px 15px 1px;" >

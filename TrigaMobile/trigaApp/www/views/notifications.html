@@ -1,10 +1,6 @@
 <ion-view title="Notificações">
   <ion-nav-buttons side="right" > 
-		<button id="notificationPopover" ng-click="openPopover($event)"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
-			<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
-				<span ng-if="unsawNotficiationsSize > 0"  class="badge badge-assertive" style="left: 16px;top: -2px;font-size: 12px;position: absolute;">{{unsawNotficiationsSize}}</span>
-			</span>
-		</button>
+		<notificationnavbariconcomponent></notificationnavbariconcomponent>
 	</ion-nav-buttons>
 	<md-button aria-label="Apagar notificações" class="md-fab" style="position: absolute;  left: 78%;  top: 85%;  background: rgb(52, 127, 127)" ng-click="showAlert($event)">
          	<div class="circle ion-ios-trash" style="font-size: 34px;box-shadow:none;width: 55px;height: 55px; position: relative; left: -5px;top:1px; color: rgba(0, 0, 0, 0.79);"></div>
@@ -32,7 +28,7 @@
 		           			</div>
 					        <div class="md-list-item-text">
                               <h3 class="row noPM" style="width: 100%;" >
-                              		<div class="boldCondensed" style="width: 85%;line-height: initial;">
+                              		<div class="boldCondensed" style="width: 85%;line-height: initial;color:rgb(11, 101, 102);">
                               			{{notification.title}}
                               		</div>
                               		<div class="boldCondensed" style="color: rgb(56, 151, 231);line-height: initial;width: 50px;text-align: right;">{{notification.date}}</div>

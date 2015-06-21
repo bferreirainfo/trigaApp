@@ -142,14 +142,7 @@ trigaApp.service('LoginService', function($q,$resource) {
 		login: function(username, password,institutionName) {
 			var resource = $resource(apiUrl+':action?username=:username&password=:password&institution=:institution',{ action: "login", username: username, password : password, institution: institutionName }, { get:  {method: 'GET'} });
 			var q = $q.defer();
-			resource.get(
-					function(resp) {
-						removePromiseProperties(resp);
-						q.resolve(resp);
-					}, 
-					function(err) { 
-						q.reject(err);
-					});
+			fecthData(q,resource, 'get',"login");
 			return q.promise;
 		},
 	}
@@ -199,10 +192,11 @@ function fecthData(qDefered,resource,methodName,storageKey, tries){
 	    	removePromiseProperties(resp);
 	    	console.log("RESPONSE " + JSON.stringify(resp));
 	    	if(resp.status != null){
-	    		var response = {data : resp.data ,lastUpdateDate : new Date()};
-	    		if(storageKey)
-	    			window.localStorage.setItem(storageKey, JSON.stringify(response));
-	    		qDefered.resolve(response);
+	    		if(storageKey){
+	    			resp.lastUpdateDate = new Date();
+	    			window.localStorage.setItem(storageKey, JSON.stringify(resp));
+	    		}
+	    		qDefered.resolve(resp);
 	    	}else if(tries == 3){
 	    			var err = {cache : null, status: null, errorMessage: null};
 	    			if(storageKey)

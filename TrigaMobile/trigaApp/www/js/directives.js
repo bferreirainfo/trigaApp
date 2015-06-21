@@ -6,6 +6,13 @@ trigaApp.directive('slideschedulecomponent', function () {
 	    restrict: 'E',
 	    scope: {schedule: '=' , fecthMethod:'&'},
 	    replace: true,
-	    templateUrl: 'views/slideschedulecomponent.html',
+	    templateUrl: 'views/components/slideschedulecomponent.html',
 	    }
 	}); 
+trigaApp.directive('notificationnavbariconcomponent', function () {
+	return {
+		restrict: 'E',
+		replace: true,
+		templateUrl: 'views/components/notificationnavbariconcomponent.html',
+	}
+}); 
