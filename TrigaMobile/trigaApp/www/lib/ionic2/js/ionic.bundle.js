@@ -3645,7 +3645,7 @@ function keyboardInit() {
   var debouncedKeyboardFocusIn = ionic.debounce(keyboardFocusIn, 200, true);
 
   if (keyboardHasPlugin()) {
-    window.addEventListener('native.keyboardshow', ionic.debounce(keyboardNativeShow, 100, true));
+    window.addEventListener('native.keyboardshow', ionic.debounce(keyboardNativeShow, 10, true));
     window.addEventListener('native.keyboardhide', keyboardFocusOut);
   } else {
     document.body.addEventListener('focusout', keyboardFocusOut);

@@ -65,15 +65,16 @@ var pushNotificationRegister = {
                 }
             break;
             case 'message':
+            	// update unsawNotficiations to use on notification screen
+            	var unsawNotficiations =  JSON.parse(window.localStorage.getItem("unsawNotficiations")) || [];
+            	unsawNotficiations.unshift(e.payload);
+            	window.localStorage.setItem("unsawNotficiations", JSON.stringify(unsawNotficiations));
               // this is the actual push notification. its format depends on the data model from the push server
             	 if ( e.coldstart ){
             		 //coldstart means that app was closed and the user opened it by click on notification in notification  bar.
             		 isColdStart = true;
                  }else{
-                	 var unsawNotficiations =  JSON.parse(window.localStorage.getItem("unsawNotficiations")) || [];
-                	 unsawNotficiations.unshift(e.payload);
-                	 window.localStorage.setItem("unsawNotficiations", JSON.stringify(unsawNotficiations));
-                	 console.log("addUnsawNotification")
+                	//here we update unsawNotficiations global icon
         			 var scope = angular.element($("div[nav-bar='active']").find('#notificationPopover')).scope();
         			 if(scope != null)
     			     scope.$apply(function(){
@@ -81,16 +82,14 @@ var pushNotificationRegister = {
     			        scope.unsawNotficiationsSize = unsawNotficiations.length;
     			     });
                  }
-            	 console.log("notification", e.payload)
-            	 var notficiations = JSON.parse(window.localStorage.getItem("storedNotifications")) || [];
-    			 notficiations.unshift(e.payload);
-    			 window.localStorage.setItem("storedNotifications", JSON.stringify(notficiations));
+//     			}
+            	//here we update unsawNotficiations list
     			 var notificationListElement = document.getElementById("notificationList");
     			 if(null != notificationListElement){
-    				 var storedNotificationsScope = angular.element(notificationListElement).scope();
-    					 storedNotificationsScope.$apply(function(){
-    						 storedNotificationsScope.storedNotifications = notficiations;
-    					 });
+    				 var unsawNotficiationsScope = angular.element(notificationListElement).scope();
+    				 unsawNotficiationsScope.$apply(function(){
+    					 unsawNotficiationsScope.unsawNotficiations = unsawNotficiations;
+    				 });
     			 }
     			 
             break;

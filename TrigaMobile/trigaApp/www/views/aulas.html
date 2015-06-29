@@ -4,7 +4,7 @@
 		<notificationnavbariconcomponent></notificationnavbariconcomponent>
 	</ion-nav-buttons>
 	<!-- SUBHEADER -->
-	<ion-header-bar  id="subHeader1" class="noPM subHeaderAnimationCondition" no-tap-scroll="true" style="transform: translate3d(0em,0em,0em);border:none;height:37px;" >
+	<ion-header-bar  id="subHeader1" class="noPM subHeaderAnimationCondition" no-tap-scroll="true" style="transform: translate3d(0em,0em,0em);border:none;height:36px;" >
 	       <tab-slide-box tab="{{initialSlide}}" class="noPM"  >
 			    	<div id="tsbIcons" class="tsb-icons backgroundInstitution1"  >
 			    		<div class="tsb-ic-wrp backgroundInstitution1 shadowed" >
@@ -24,8 +24,8 @@
 	<!-- CONTENT -->
 	<ion-content id="contentAnimation" class="contentAnimation noPM tabsdemoStaticTabs" style="z-index:0;transform: translate3d(0em,0em,0em);" scroll="false" >
 		<div ng-if="errorMessage">
-	  		<md-subheader class="boldCondensed noPM" style="font-size: 16px; background: #FE5959;width: 100%;right:0px;">
-   				 <md-list-item class="md-3-line noPM">
+	  		<div class="boldCondensed" style="font-size: 16px; background: #FE5959;width: 100%;right:0px;">
+   				 <md-list-item class="md-3-line">
            			<div class="md-avatar" style="background: white;">
 						  	<i class="icon ion-wifi"  style="font-size:25px;position: relative;top: 7px;left: 9px;color:#FE5959"></i>
 			        </div>
@@ -47,7 +47,7 @@
 					  </h3>
 					  </div>
 				  </md-list-item>
-    		</md-subheader>
+    		</div>
   		</div>
   		<ion-scroll ng-if="dto.data == null" style="height:100%;"  has-bouncing="true" class="padding">
 			<div  style="margin-top: 20%;margin-bottom: 20%;text-align: center;">

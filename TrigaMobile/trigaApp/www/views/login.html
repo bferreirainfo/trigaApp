@@ -8,9 +8,9 @@
 		<form ng-submit="signIn($event,username,password,selectedInstitution)">
 			<div style="padding: 20px;">
 		        <label  style="font-size: 20px !important;"><i class="icon ion-podium" style="margin-right: 10px;"></i>Instituição</label>
-		        <md-select required="" ng-model="selectedInstitution" md-on-open="loadIntitutions()" style="min-width: 200px;width:100%;">
-					<md-select-label>{{ selectedInstitution ? selectedInstitution.name : 'Selecione sua instituição' }}</md-select-label>
-					<md-option  ng-value="intitution" ng-repeat="intitution in institutions">{{intitution.name}}</md-option>
+		        <md-select ng-model="selectedInstitution" md-on-open="loadIntitutions()" style="min-width: 200px;width:100%;">
+					<md-select-label class="noPM" style="font-size: 18px !important;">{{ selectedInstitution ? selectedInstitution.name : 'Selecione sua instituição' }}</md-select-label>
+					<md-option  ng-value="intitution" ng-repeat="intitution in institutions" style="font-size: 18px !important;">{{intitution.name}}</md-option>
 		   	 	</md-select>
 			   	<md-input-container style="padding-bottom: 0px;width:100%;"  flex >
 			        <label  style="font-size: 20px !important;"><i class="icon ion-at" style="margin-right: 10px;"></i>Email</label>
@@ -22,14 +22,6 @@
 			        <!-- colocar conditional autofocus -->
 					<input type="password"  style="font-size: 18px !important;width:100%;" ng-model="password"></input>
 		       </md-input-container>
-	<!-- 	   	<md-input-container  flex style="padding-bottom: 0px;"> -->
-	<!-- 	   		<label  style="font-size: 20px !important;"><i class="icon ion-ios-person" style="margin-right: 10px;"></i>Usuario</label> -->
-	<!-- 			<input input style="font-size: 18px !important;"ng-model="username"></input> -->
-	<!--        </md-input-container> -->
-	<!-- 	   	<md-input-container flex > -->
-	<!-- 	   		<label  style="font-size: 20px !important;"><i class="icon ion-ios-person" style="margin-right: 10px;"></i>Senha</label> -->
-	<!-- 			<input input style="font-size: 18px !important;" ng-model="password"></input> -->
-	<!--        </md-input-container> -->
 				<br/>
 		  		<md-button type="submit" class="md-raised button-block" style="background: #FABD10;height:50px;">LOG IN</md-button>
 		  		

@@ -7,6 +7,7 @@ html,body {
   font-family: Roboto,sans-serif !important;
   font-stretch: condensed !important;
   transform: translate3d(0em,0em,0em);
+  text-rendering: optimizeLegibility !important;
 }
 
 .fade-bar {
@@ -34,6 +35,7 @@ html,body {
 	padding-top: 12px !important;
 }
 .shadowed{
+	/* border-bottom:3px solid rgb(255, 195, 8) !important; */
 	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
 .bar-header{
@@ -329,11 +331,6 @@ html,body {
 	font-size: 14px;
 }
 
-
-md-divider.md-default-theme {
-  border-top-color: rgba(0, 0, 0, 0.13);
-}
-
 .item-icon-left .icon, .item-icon-right .icon{
 	font-size: 23px !important;
 }
@@ -499,8 +496,33 @@ md-divider.md-default-theme {
 .buttons-right{
 	top:8px !important;
 }
+
+.upperCaseFirstLetter:first-letter {
+    text-transform: uppercase;
+}
+/* ionic */
+.platform-android {
+    padding-top: 25px;
+    /*StatusBar color*/
+    background-color: rgb(8, 89, 89);
+}
+.platform-ios{
+    padding-top: 25px;
+    /*StatusBar color*/
+    background-color: rgb(8, 89, 89);
+}
+.scroll-content{
+	padding-top: 0px !important; 
+}
+
+/* ANGULAR MATERIAL */
 .md-subheader:not(.md-sticky-no-effect):after{
 	right:0 !important;
+	background-color: rgb(11, 101, 102) !important;
+	color:white;
+}
+.md-subheader:not(.md-sticky-no-effect)[sticky-state="active"]{
+	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084);
 }
 .md-list-item-text{
 	padding: 10px 0 !important;
@@ -508,3 +530,19 @@ md-divider.md-default-theme {
 .noPM .md-subheader-inner {
   padding: 0px 0px 0px 16px !important;
 }
+.md-subheader{
+	margin: 0px !important;
+}
+md-divider{
+	border-top-style: ridge !important;
+}
+
+md-list-item md-divider[md-inset] {
+  left: 72px !important;
+  width: calc(100% - 72px) !important;
+  margin: 0;
+}
+md-list{
+	padding: 8px 0px 0px 0px !important;
+}
+

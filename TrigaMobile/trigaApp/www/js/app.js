@@ -106,7 +106,9 @@ trigaApp.config(function($stateProvider, $urlRouterProvider) {
 //})
 trigaApp.constant('$ionicLoadingConfig', {template: '<svg class="spinner-container" style="width:65px;height:65px;" viewBox="0 0 44 44" data-reactid=".0.1.0"><circle class="path" cx="22" cy="22" r="20" fill="none" stroke-width="4" data-reactid=".0.1.0.0"></circle></svg>', noBackdrop: true});
 trigaApp.config(function($ionicConfigProvider) {
-	  $ionicConfigProvider.scrolling.jsScrolling(!ionic.Platform.isWebView());
+	//this make ionicKeyboard plugin resize screen when keyboard is showed in fullscreen mode.
+	//	$ionicConfigProvider.scrolling.jsScrolling(!ionic.Platform.isWebView());
+	ionic.Platform.isFullScreen = true;
 });
 var isProd;
 trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,$timeout,$rootScope) {
@@ -124,9 +126,18 @@ trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,
 		}
 		
 		///this plugin lock the orientation for all screens to only portrait |º|
-		if(ionic.Platform.isWebView())
+		if(ionic.Platform.isWebView()){
 			screen.lockOrientation('portrait');
-		
+			if (window.cordova && window.cordova.plugins.Keyboard) {
+			    //Lets hide the accessory bar fo the keyboard (ios)
+			    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+			    // also, lets disable the native overflow scroll
+			    cordova.plugins.Keyboard.disableScroll(true);
+			  }
+			 statusbarTransparent.enable();
+		     // Get the bar back
+		     StatusBar.show();
+		}
 		//
 		$timeout(function(){
 			var startType;
@@ -144,9 +155,10 @@ trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,
 				case "defaultPage":
 					$location.path("/menu/" + JSON.parse(window.localStorage.getItem("appConfig")).defaultPage);
 //					$location.path("/menu/" + "controleDeFaltas");
+//					$location.path("/menu/" + "notifications");
+//					$location.path("/menu/" + "notas");
 					break;
 				case "firstTime": 
-					console.log("firstTime")
 					$location.path("/login");
 					break;
 			}
@@ -164,34 +176,3 @@ trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,
     $rootScope.exitApp = ionic.Platform.exitApp;
     $rootScope.sideMenuController = $ionicSideMenuDelegate;
 })
-
-
-
-// window.addEventListener('native.showkeyboard', keyboardShowHandler);
-//
-//		    // native.showkeyboard callback
-//		    // e contains keyboard height
-//		    function keyboardShowHandler(e) {
-//		        // get viewport heightenquan
-//		    		var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-//		    		// get the maximum allowed height without the need to scroll the page up/down
-//		    		var scrollLimit = viewportHeight - (document.activeElement.offsetHeight + document.activeElement.offsetTop);
-//		    		
-//		    		// if the keyboard height is bigger than the maximum allowed height
-////		        if (e.keyboardHeight > scrollLimit) {
-//		    		// calculate the Y distance
-//		    		var scrollYDistance = document.activeElement.offsetHeight + (e.keyboardHeight - scrollLimit);
-//		    		// animate using move.min.js (CSS3 animations)
-////		    		move(document.body).to(0, -scrollYDistance).duration('.2s').ease('in-out').end();
-////		        }
-//		    }
-//		    window.addEventListener('native.hidekeyboard', keyboardHideHandler);
-//
-//		    // native.hidekeyboard callback
-//		    function keyboardHideHandler() {
-//		        // remove focus from activeElement 
-//		        // which is naturally an input since the nativekeyboard is hiding
-//		        document.activeElement.blur();
-//		        // animate using move.min.js (CSS3 animations)
-//		        move(document.body).to(0, 0).duration('.1s').ease('in-out').end();
-//		    }

@@ -12,8 +12,8 @@
 				  </ion-refresher>
         <div class="slideUp1" >
 			<div ng-if="errorMessage">
-		  		<md-subheader class="boldCondensed noPM" style="font-size: 16px; background: #FE5959;width: 100%;right:0px;">
-    				 <md-list-item class="md-3-line noPM">
+		  		<div class="boldCondensed" style="font-size: 16px; background: #FE5959;width: 100%;right:0px;">
+    				 <md-list-item class="md-3-line">
 	           			<div class="md-avatar" style="background: white;">
 							  	<i class="icon ion-wifi"  style="font-size:25px;position: relative;top: 7px;left: 9px;color:#FE5959"></i>
 				        </div>
@@ -35,7 +35,7 @@
 						  </h3>
 						  </div>
 					  </md-list-item>
-	    		</md-subheader>
+	    		</div>
 	 		</div>
 	 		<div ng-if="dto.data == null && isFetching == false" style="margin-top: 30%;margin-bottom: 20%;text-align: center;">
 				<div class="ion-clipboard" style="font-size: 100px;"></div>

@@ -89,7 +89,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 		addFalta: function(cadeiraId) {
 			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
-			var addFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "addFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', timeout: 1000} });
+			var addFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "addFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', timeout: 20000} });
 			var q = $q.defer();
 			fecthData(q,addFaltaResource, 'get');
 			return q.promise;
@@ -97,7 +97,7 @@ trigaApp.service('ControleDeFaltasService', function($q,$resource) {
 		subFalta: function(cadeiraId) {
 			var studentId = JSON.parse(window.localStorage.getItem("studentPerfil")).id;
     		var institutionName = JSON.parse(window.localStorage.getItem("appConfig")).instituionName;
-			var subFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "subFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', timeout: 1000} });
+			var subFaltaResource = $resource(apiUrl +':action?studentId=:studentId&institution=:institution&cadeiraId=:cadeiraId',{ action: "subFalta", studentId: studentId,  institution: institutionName, cadeiraId : cadeiraId}, { 'get':  {method: 'GET', timeout: 20000} });
 			var q = $q.defer();
 			fecthData(q,subFaltaResource, 'get');
 			return q.promise;
@@ -172,7 +172,7 @@ function isCacheExpired(serviceName){
 	if(lastTime){
 		
 		var diff = new Date() -  lastTime;
-		var minutes = Math.floor((diff/1000)/60);
+		var minutes = Math.floor((diff/20000)/60);
 		if( minutes >= 1){
 			expired = true;
 		}
@@ -197,7 +197,7 @@ function fecthData(qDefered,resource,methodName,storageKey, tries){
 	    			window.localStorage.setItem(storageKey, JSON.stringify(resp));
 	    		}
 	    		qDefered.resolve(resp);
-	    	}else if(tries == 3){
+	    	}else if(tries == 10){
 	    			var err = {cache : null, status: null, errorMessage: null};
 	    			if(storageKey)
 	    			err.cache = JSON.parse(window.localStorage.getItem(storageKey));
@@ -211,7 +211,7 @@ function fecthData(qDefered,resource,methodName,storageKey, tries){
 	    	var isTimeOutError = err.status == 0 && err.data == null;
 	    	if(isTimeOutError){
 	    		console.log("THE TRIES THO,THE TRIES..." + tries)
-	    		if(tries == 3){
+	    		if(tries == 10){
 	    			if(storageKey)
 	    			err.cache = JSON.parse(window.localStorage.getItem(storageKey));
 	    			err.status = timeoutError;

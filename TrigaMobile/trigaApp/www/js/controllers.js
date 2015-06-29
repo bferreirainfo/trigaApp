@@ -26,7 +26,7 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 								 $("#gradeListView").show();
 							 }else{
 								 $("#gradeListView").animate({
-									 'top': '40px',
+									 'top': '44px',
 								 }, {duration: 'slow', queue: false}).fadeIn(1000);
 								 $("#gradeListView").removeClass("contentAnimation1");
 								 firstime = false;
@@ -45,7 +45,7 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 							 $("#gradeListView").show();
 						 }else{
 							 $("#gradeListView").animate({
-								 'top': '40px',
+								 'top': '44px',
 							 }, {duration: 'slow', queue: false}).fadeIn(1000);
 							 $("#gradeListView").removeClass("contentAnimation1");
 							 firstime = false;
@@ -55,8 +55,9 @@ trigaApp.controller('NotasCtrl', function($rootScope,$scope, NotasService, $ioni
 	}
 	$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
 		if(states.stateName == "menu.notas"){
-			$rootScope.sideMenuController.canDragContent(true);
 			fetch();
+			$rootScope.sideMenuController.canDragContent(true);
+			$('.appHeader').addClass("shadowed");
         }
 	});
 	$scope.fetch = fetch;
@@ -92,7 +93,7 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 							 $(".slideUp").fadeIn(1000);
 						 }else{
 							 $("#contentAnimation").animate({
-								 'top': '101px',
+								 'top': '100px',
 							 }, {duration: 'slow', queue: false}).fadeIn(1000);
 							 $("#contentAnimation").removeClass("contentAnimation");
 							 firstime = false;
@@ -115,7 +116,7 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 						 $(".slideUp").fadeIn(1000);
 					 }else{
 						 $("#contentAnimation").animate({
-							 'top': '101px',
+							 'top': '100px',
 						 }, {duration: 'slow', queue: false}).fadeIn(1000);
 						 $("#contentAnimation").removeClass("contentAnimation");
 						 firstime = false;
@@ -127,15 +128,10 @@ trigaApp.controller('AulasCtrl', function ($rootScope,$scope, QuadroDeHorarioSev
 	$scope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
         if(states.stateName == "menu.aulas") {
         	$rootScope.sideMenuController.canDragContent(false);
-        	$('.appHeader').removeClass("shadowed");
-    		fetch();
+			$('.appHeader').removeClass("shadowed");
+			fetch();
+
         }
-	});
-	$scope.$on( "$ionicView.leave", function( scopes, states ) {
-		if(states.stateName == "menu.aulas") {
-			$rootScope.sideMenuController.canDragContent(true);
-			$('.appHeader').addClass("shadowed");
-		}
 	});
 	$scope.fetch = fetch;
 	$scope.updateFn = fetch;
@@ -145,11 +141,11 @@ trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $ti
 	 $scope.username = null; 
 	 $scope.password = null;	 
 	 $scope.selectedInstitution = null;
-	 $scope.institutions = [{value: "TRIGA" , name :"TRIGA(TESTE)"}, {value: "ALQUIMIA", name:"ALQUIMIA "}];
+	 $scope.institutions = [{value: "TRIGA" , name :"Triga"}, {value: "ALQUIMIA", name:"Alquimia"}];
 	 if(!isProd){			 
   		$scope.username = "bferreira.info@gmail.com";
   		$scope.password = "123";
-  		$scope.selectedInstitution = {value: "TRIGA" , name :"TRIGA(TESTE)"};
+  		$scope.selectedInstitution = {value: "TRIGA" , name :"Triga"};
 	  }
 	  $scope.show = false;
 	  $scope.signIn = function(ev,username,password,selectedInstitution) {
@@ -247,7 +243,7 @@ trigaApp.controller('loadingDataCtrl', function($scope, $state, $timeout, LoginS
 							  }
 						  },2000);
 					  }
-				  },100);
+				  },60);
 			  }
 		  },1000);
 	  }else{
@@ -310,8 +306,9 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, $mdToas
 	
 	$scope.$on( "$ionicView.beforeEnter", function( scopes, states) {
 		if(states.stateName == "menu.controleDeFaltas" ) {
-			$rootScope.sideMenuController.canDragContent(true);
 			fetch();
+			$rootScope.sideMenuController.canDragContent(true);
+			$('.appHeader').addClass("shadowed");
 		}
 	});
 	$scope.fetch = fetch;
@@ -378,6 +375,17 @@ trigaApp.controller('TeacherReviewCtrl', function ($scope,$ionicSideMenuDelegate
 	  };
 })
 trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, $timeout) {
+	$scope.formatDate = function(time){
+		var notificationDate = new Date();
+		notificationDate.setTime(time);
+		var todayDate = new Date();
+		var isTodayDate = (todayDate.toDateString() === notificationDate.toDateString());
+		if(isTodayDate){
+			return  notificationDate.getHours() + ':' + notificationDate.getMinutes();
+		}else{
+			return notificationDate.getDate() + '/' + (notificationDate.getMonth() + 1)  + '/' +  notificationDate.getFullYear();
+		}
+	}
 	$scope.showAlert = function(ev) {
 	    // Appending dialog to document.body to cover sidenav in docs app
 	    // Modal dialogs should fully cover application
@@ -399,6 +407,7 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
    				 var storedNotificationsScope = angular.element(notificationListElement).scope();
    					 storedNotificationsScope.$apply(function(){
    						 storedNotificationsScope.storedNotifications = null;
+   						 storedNotificationsScope.unsawNotficiations = null;
    					 });
    			 }
 			},0)
@@ -407,27 +416,55 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
 	    });;
 	  };
 	$scope.$on( "$ionicView.beforeEnter", function( scopes, states) {
-//		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
-		var fileDir =  "img/";
-//		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
-		var fileName =  "triga3.jpg"
-		var targetPath = fileDir + fileName;
-		$scope.institutionIcon = targetPath;
 		if( states.stateName == "menu.notifications" ) {
-			
-			$rootScope.sideMenuController.canDragContent(true);
-//			$('.appHeader').addClass("shadowed");
-			window.localStorage.removeItem("unsawNotficiations");
-			$timeout(function(){
+			$('.appHeader').removeClass("shadowed");
+//		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
+			var fileDir =  "img/";
+//		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
+			var fileName =  "triga3.jpg"
+			var targetPath = fileDir + fileName;
+			$scope.institutionIcon = targetPath;
+			var unsawNotficiations = JSON.parse(window.localStorage.getItem("unsawNotficiations"));
 			var storedNotifications = JSON.parse(window.localStorage.getItem("storedNotifications"));
+			$timeout(function(){
+			$scope.storedNotificationsHeight = $(window).height() -38;
+			// if has unsawNotficiations we must save it as a sawed notification.
+			if(unsawNotficiations){
+				//if there is storedNotifications we must concat then both, otherwise, just put unsawNotficiations
+				var AllNotifications = storedNotifications ?  unsawNotficiations.concat(storedNotifications) : unsawNotficiations;
+				window.localStorage.setItem("storedNotifications",JSON.stringify(AllNotifications));
+			}
+			
+			window.localStorage.removeItem("unsawNotficiations");
 			if(!ionic.Platform.isWebView())
-			storedNotifications = [{ title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: '10/3', notificaitonType: 'TRIGA'},
-			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: '10/3', notificaitonType: 'INSTITUTION'},
-			                              { title : 'seja bem vindo ao triga', message: '', date: '10/3', notificaitonType:'GRADE_NOTIFICATION'}]
+			storedNotifications = [{ title : 'seja bem vindo ao triga', message: 'Se você recebeu essa mensagem significa que seu dispositivo está pronto para receber notificações da instituição.', date: new Date().getTime(), notificaitonType: 'TRIGA'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'Não haverá aula', message: 'Não haverá aula hoje', date: new Date().getTime(), notificaitonType: 'INSTITUTION'},
+			                              { title : 'seja bem vindo ao triga', message: '', date: new Date().getTime(), notificaitonType:'GRADE_NOTIFICATION'}]
 			var notificationListElement = document.getElementById("notificationList");
   			 if(null != notificationListElement){
   				 var storedNotificationsScope = angular.element(notificationListElement).scope();
   					 storedNotificationsScope.$apply(function(){
+  						 storedNotificationsScope.unsawNotficiations = unsawNotficiations;
   						 storedNotificationsScope.storedNotifications = storedNotifications;
   					 });
   			 }
@@ -472,11 +509,6 @@ trigaApp.controller('UserCtrl', function($scope, UserPerfilService) {
 	}
 })
 
-trigaApp.controller('ChooseInstitutionCtrl', function($scope, LoginService) {
-	$scope.choose = function(institutionName){
-		LoginService.setInstitution(institutionName);
-    }
-})
 
 trigaApp.controller('MenuCtrl', function($scope) {
 	var appConfig = JSON.parse(window.localStorage.getItem("appConfig"));
