@@ -169,8 +169,7 @@ trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $ti
 							  if(ionic.Platform.isWebView())
 								  pushNotificationRegister.initialize(PushNotificationService);
 							  $ionicHistory.nextViewOptions({
-								  disableAnimate: true,
-								  disableBack: true
+								  historyRoot: true
 							  });
 							  
 							  
@@ -373,7 +372,7 @@ trigaApp.controller('TeacherReviewCtrl', function ($scope,$ionicSideMenuDelegate
 	  $scope.removeItem = function() {
 	    $scope.radioData.pop();
 	  };
-})
+})
 trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, $timeout) {
 	$scope.formatDate = function(time){
 		var notificationDate = new Date();
@@ -381,9 +380,9 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
 		var todayDate = new Date();
 		var isTodayDate = (todayDate.toDateString() === notificationDate.toDateString());
 		if(isTodayDate){
-			return  notificationDate.getHours() + ':' + notificationDate.getMinutes();
+			return  zeroFill(notificationDate.getHours(),2) + ':' + zeroFill(notificationDate.getMinutes(),2);
 		}else{
-			return notificationDate.getDate() + '/' + (notificationDate.getMonth() + 1)  + '/' +  notificationDate.getFullYear();
+			return zeroFill(notificationDate.getDate(),2) + '/' + zeroFill((notificationDate.getMonth() + 1),2)  + '/' +  notificationDate.getFullYear();
 		}
 	}
 	$scope.showAlert = function(ev) {
@@ -417,7 +416,7 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
 	  };
 	$scope.$on( "$ionicView.beforeEnter", function( scopes, states) {
 		if( states.stateName == "menu.notifications" ) {
-			$('.appHeader').removeClass("shadowed");
+			$('.appHeader').addClass("shadowed");
 //		var fileDir = ionic.Platform.isWebView() ? cordova.file.dataDirectory : "img/";
 			var fileDir =  "img/";
 //		var fileName = ionic.Platform.isWebView() ? 'institution_small_icon.png': "triga3.jpg"
@@ -427,7 +426,7 @@ trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, 
 			var unsawNotficiations = JSON.parse(window.localStorage.getItem("unsawNotficiations"));
 			var storedNotifications = JSON.parse(window.localStorage.getItem("storedNotifications"));
 			$timeout(function(){
-			$scope.storedNotificationsHeight = $(window).height() -38;
+			$scope.storedNotificationsHeight = $(window).height() -42;
 			// if has unsawNotficiations we must save it as a sawed notification.
 			if(unsawNotficiations){
 				//if there is storedNotifications we must concat then both, otherwise, just put unsawNotficiations
@@ -489,6 +488,29 @@ trigaApp.controller('UnsawNotficiationsPopoverCtrl', function($scope, $ionicPopo
 		    $scope.popover.hide();
 	};
 	
+	$scope.showUnsawNotifications = function(){
+		$timeout(function(){
+		//here we update unsawNotficiations list
+		 var unsawNotficiations =  JSON.parse(window.localStorage.getItem("unsawNotficiations")) || null;
+		 var notificationListElement = document.getElementById("notificationList");
+		 if(null != notificationListElement && null !=  unsawNotficiations){
+			 var unsawNotficiationsScope = angular.element(notificationListElement).scope();
+			 unsawNotficiationsScope.$apply(function(){
+				 if(unsawNotficiationsScope.unsawNotficiations){
+					 unsawNotficiationsScope.unsawNotficiations =  unsawNotficiations.concat(unsawNotficiationsScope.unsawNotficiations);
+				 }else{
+					 unsawNotficiationsScope.unsawNotficiations =  unsawNotficiations;
+				 }
+			 });
+		 }
+		 $scope.unsawNotficiationsSize = 0;
+		 window.localStorage.removeItem("unsawNotficiations");
+		 var storedNotifications = JSON.parse(window.localStorage.getItem("storedNotifications"));
+		 //if there is storedNotifications we must concat then both, otherwise, just put unsawNotficiations
+		 var AllNotifications = storedNotifications ?  unsawNotficiations.concat(storedNotifications) : unsawNotficiations;
+		 window.localStorage.setItem("storedNotifications",JSON.stringify(AllNotifications));
+		},100)
+	}
 	$scope.openPopover = function($event){
 		$scope.popover.show($event)
 		$scope.unsawNotficiationsSize = 0;
@@ -525,3 +547,12 @@ function isNotEmpty(obj){
 	return false;
 }
 
+function zeroFill( number, width )
+{
+  width -= number.toString().length;
+  if ( width > 0 )
+  {
+    return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+  }
+  return number + ""; // always return a string
+}

@@ -83,15 +83,6 @@ var pushNotificationRegister = {
     			     });
                  }
 //     			}
-            	//here we update unsawNotficiations list
-    			 var notificationListElement = document.getElementById("notificationList");
-    			 if(null != notificationListElement){
-    				 var unsawNotficiationsScope = angular.element(notificationListElement).scope();
-    				 unsawNotficiationsScope.$apply(function(){
-    					 unsawNotficiationsScope.unsawNotficiations = unsawNotficiations;
-    				 });
-    			 }
-    			 
             break;
  
             case 'error':

@@ -8,11 +8,6 @@ trigaApp.config(function($mdThemingProvider) {
 trigaApp.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-	    .state('chooseInstitution', {
-	    	url: "/chooseInstitution",
-	    	templateUrl: "views/chooseInstitution.html",
-	    	controller: "ChooseInstitutionCtrl"
-	    })
 	    .state('login', {
 	    	url: "/login",
 	    	templateUrl: "views/login.html",

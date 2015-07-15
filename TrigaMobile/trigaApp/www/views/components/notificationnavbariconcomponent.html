@@ -1,5 +1,5 @@
-<a id="notificationPopover" href="#/menu/notifications"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
-	<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 34px;position: relative;left: -12px;">
+<a id="notificationPopover" ng-click="showUnsawNotifications();" href="#/menu/notifications"  class="notificationPopover button  button-icon button-clear noPM" ng-controller="UnsawNotficiationsPopoverCtrl" >
+	<span ng-style="{color : unsawNotficiationsSize > 0 ? 'rgba(0, 0, 0, 0.79)' : 'rgba(0, 0, 0, 0.79)'}" class="ion-android-globe" style="font-size: 30px;position: relative;left: -12px;">
 		<span ng-if="unsawNotficiationsSize > 0"  class="badge badge-assertive" style="left: 16px;top: -2px;font-size: 12px;position: absolute;">{{unsawNotficiationsSize}}</span>
 	</span>
 </a>

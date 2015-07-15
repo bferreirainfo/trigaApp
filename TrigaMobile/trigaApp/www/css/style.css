@@ -36,7 +36,7 @@ html,body {
 }
 .shadowed{
 	/* border-bottom:3px solid rgb(255, 195, 8) !important; */
-	box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 0px 2px 2px rgba(0, 0, 0, 0.098), 0px 0px 5px 1px rgba(0, 0, 0, 0.084);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 .bar-header{
 	padding-left: 13px !important;
@@ -68,16 +68,9 @@ html,body {
 	color: orange;
 }
 .circle {
-  display: block;
-  width: 55px;
-  height: 55px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  -webkit-border-radius: 99em;
-  -moz-border-radius: 99em;
-  border-radius: 130em;
-  /* box-shadow: 0 3px 2px rgba(0, 0, 0, 0.3);   */
+ border-radius: 50%;
+ width: 20px;
+ height: 20px;
 }
 .pace {
   -webkit-box-sizing: border-box;
@@ -254,12 +247,6 @@ html,body {
 	color: rgb(15, 71, 66) !important;
 }
 
-.title{
-	/* 	Faculdade  Funeso */
-	/* color:#fff; */
-	/* 	Triga */
-	color: rgb(255, 195, 8);
-}
 
 .alquimiaLogo{
 	width: 150px;
@@ -275,9 +262,7 @@ html,body {
 .universoLogo{
 	width:320px;height:140px;position:relative;top:-10px;left:-20px;
 }
-.bar .title.title-left{
-	position: relative !important;top: -6px;left: 0 !important;right: 0 !important;
-}
+
 
 .marginaldo{
 	margin:10px !important;
@@ -335,12 +320,7 @@ html,body {
 	font-size: 23px !important;
 }
 
-.bar .button.button-icon .icon:before, .bar .button.button-icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before {
-	font-size: 33px !important;
-	line-height: 32px !important;
-	color: rgba(0, 0, 0, 0.79);
-	padding: 6px 0px 8px 12px !important;
-}
+
 
 .loginCenter{
 	width: 200px;
@@ -373,6 +353,7 @@ html,body {
 	width: 100%;
 	padding: 6px 0px 6px 60px !important;
 	margin: 0px !important;
+	border-radius: 0px !important;
 	color: rgb(250, 211, 91) !important;
 	display: inherit !important;
 	border-bottom: 1px solid rgb(51, 51, 51) !important ;
@@ -493,9 +474,7 @@ html,body {
 .loading-container .loading{
 	background: none !important;
 }
-.buttons-right{
-	top:8px !important;
-}
+
 
 .upperCaseFirstLetter:first-letter {
     text-transform: uppercase;
@@ -511,10 +490,35 @@ html,body {
     /*StatusBar color*/
     background-color: rgb(8, 89, 89);
 }
+
+/* HEADER */
+.title{
+	/* 	Faculdade  Funeso */
+	/* color:#fff; */
+	/* 	Triga */
+	color: rgb(255, 195, 8);
+	/* color:white; */
+}
+
+.bar .button.button-icon .icon:before, .bar .button.button-icon:before, .bar .button.button-icon.icon-left:before, .bar .button.button-icon.icon-right:before {
+	font-size: 33px !important;
+	line-height: 32px !important;
+	color: rgba(0, 0, 0, 0.79);
+	/* color:white; */
+	padding: 6px 0px 8px 12px !important;
+}
+.bar .button.back-button {
+  color: rgb(2, 21, 21);
+}
 .scroll-content{
 	padding-top: 0px !important; 
 }
-
+.buttons-right{
+	top:14px !important;
+}
+.bar .title.title-left{
+	position: relative !important;top: -6px;left: 3px !important;right: 0 !important;
+}
 /* ANGULAR MATERIAL */
 .md-subheader:not(.md-sticky-no-effect):after{
 	right:0 !important;
