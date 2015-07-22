@@ -240,7 +240,7 @@ function removePromiseProperties(resp){
 	delete resp["$resolved"];
 }
 function connectionStatus(){
-	if(ionic.Platform.isWebView()){
+	if(false && ionic.Platform.isWebView()){
 		 var networkState = navigator.connection.type;
 		 var states = {};
 	    states[Connection.UNKNOWN]  = 'Unknown connection';

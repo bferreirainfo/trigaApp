@@ -167,7 +167,7 @@ trigaApp.controller('LoginCtrl', function($scope,$mdDialog,$mdToast, $state, $ti
 							  //
 							  //registerNewDevice + teste notification
 							  if(ionic.Platform.isWebView())
-								  pushNotificationRegister.initialize(PushNotificationService);
+								  //pushNotificationRegister.initialize(PushNotificationService);
 							  $ionicHistory.nextViewOptions({
 								  historyRoot: true
 							  });
@@ -275,7 +275,7 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, $mdToas
 						 $(".slideUp1").fadeIn(1000);
 					 }else{
 						 $("#controleDeFaltaView").animate({
-							 'top': '20px',
+							 'top': '0px',
 						 }, {duration: 'slow', queue: false}).fadeIn(1000);
 						 $("#controleDeFaltaView").removeClass("contentAnimation");
 						 firstime = false;
@@ -294,7 +294,7 @@ trigaApp.controller('ControleDeFaltasCtrl', function($rootScope, $scope, $mdToas
 					 $(".slideUp1").fadeIn(1000);
 				 }else{
 					 $("#controleDeFaltaView").animate({
-						 'top': '20px',
+						 'top': '0px',
 					 }, {duration: 'slow', queue: false}).fadeIn(1000);
 					 $("#controleDeFaltaView").removeClass("contentAnimation");
 					 firstime = false;
@@ -372,7 +372,8 @@ trigaApp.controller('TeacherReviewCtrl', function ($scope,$ionicSideMenuDelegate
 	  $scope.removeItem = function() {
 	    $scope.radioData.pop();
 	  };
-})
+})
+
 trigaApp.controller('NotificationsCtrl', function($rootScope,$scope, $mdDialog, $timeout) {
 	$scope.formatDate = function(time){
 		var notificationDate = new Date();

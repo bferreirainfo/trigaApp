@@ -3,7 +3,7 @@
     <!-- APP SCREEN -->
 	<ion-pane ion-side-menu-content enable-menu-with-back-views="false">
 		 <!-- HEADER NAV BAR -->
-		<ion-nav-bar align-title="left" animation="slide-left-right" class="appHeader backgroundInstitution1 shadowed">
+		<ion-nav-bar animation="slide-left-right" no-tap-scroll=˜true˜ class="appHeader backgroundInstitution1 shadowed">
 			<ion-nav-back-button>
             </ion-nav-back-button>
 		    <ion-nav-buttons side="left">
@@ -15,9 +15,10 @@
 	</ion-pane> 
 	
 	<!-- SIDE MENU -->
-	<ion-side-menu side="left" enable-menu-with-back-views="false" expose-aside-when="large"  class="noPM" edge-drag-threshold="true">
-		<ion-header-bar class="noPM padding" style="display: block;height:64px;z-index: 0">
-			<img src="img/logoTrigaHorizontal.png" style="  width: 275px;height: 121px;top: -13px;position: relative;z-index: 2"></img>
+	<ion-side-menu  side="left" enable-menu-with-back-views="false" expose-aside-when="large"  class="noPM" edge-drag-threshold="true">
+		<ion-header-bar class="noPM padding" style="display: block;height:64px;z-index: 0;background:rgb(11, 101, 102)">
+			<img src="img/logoTrigaHorizontal.png" style="  width: 275px;height: 121px;top: -13px;position: relative;z-index:2;">
+            </img>
 		</ion-header-bar> 
        	<ion-content ng-controller="MenuCtrl" has-bouncing="true" header-shrink  style="margin-top:20px !important;font-size:14px !important;background:rgb(11, 101, 102) !important" scrollbar-y="false" >
    		 	<ul>

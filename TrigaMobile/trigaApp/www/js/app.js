@@ -106,10 +106,15 @@ trigaApp.config(function($ionicConfigProvider) {
 	ionic.Platform.isFullScreen = true;
 });
 var isProd;
+
 trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,$timeout,$rootScope) {
 	isProd = true;
-	FastClick.attach(document.body);
+    
+             
+    
+	//FastClick.attach(document.body);
 	ionic.Platform.ready(function(){
+          try{
 		var isUserAllReadyLogged= window.localStorage.getItem("studentPerfil") != null;
 		var waitForPushPluginInitialize = false;
 		
@@ -117,21 +122,21 @@ trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,
 			//initiate pushNotificationService to analize if the app was a "coldStart" openning
 			//coldstart means that app was closed and the user opened it by click on notification in notification  bar.
 			waitForPushPluginInitialize = true;
-			pushNotificationRegister.initialize(PushNotificationService);
+			//pushNotificationRegister.initialize(PushNotificationService);
 		}
 		
 		///this plugin lock the orientation for all screens to only portrait |º|
 		if(ionic.Platform.isWebView()){
-			screen.lockOrientation('portrait');
-			if (window.cordova && window.cordova.plugins.Keyboard) {
+			//screen.lockOrientation('portrait');
+			//if (window.cordova && window.cordova.plugins.Keyboard) {
 			    //Lets hide the accessory bar fo the keyboard (ios)
-			    cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
+			    //cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
 			    // also, lets disable the native overflow scroll
-			    cordova.plugins.Keyboard.disableScroll(true);
-			  }
-			 statusbarTransparent.enable();
+			    //cordova.plugins.Keyboard.disableScroll(true);
+			 // }
+			 //statusbarTransparent.enable();
 		     // Get the bar back
-		     StatusBar.show();
+		     //StatusBar.show();
 		}
 		//
 		$timeout(function(){
@@ -153,7 +158,8 @@ trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,
 //					$location.path("/menu/" + "notifications");
 //					$location.path("/menu/" + "notas");
 					break;
-				case "firstTime": 
+				case "firstTime":
+                    alert("login");
 					$location.path("/login");
 					break;
 			}
@@ -164,10 +170,14 @@ trigaApp.run(function($ionicSideMenuDelegate,PushNotificationService, $location,
 				}, 1000);
 			}
 			
-		}, waitForPushPluginInitialize ? 1000 : 0 );	
+		}, waitForPushPluginInitialize ? 1000 : 0 );
+                         }catch(err){
+                         alert(err);
+                         }
 	});
 	
     // Menu button
     $rootScope.exitApp = ionic.Platform.exitApp;
     $rootScope.sideMenuController = $ionicSideMenuDelegate;
+   
 })

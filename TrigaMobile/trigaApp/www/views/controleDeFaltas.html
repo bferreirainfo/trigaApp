@@ -2,7 +2,7 @@
   <ion-nav-buttons side="right" > 
 		<notificationnavbariconcomponent></notificationnavbariconcomponent>
    </ion-nav-buttons>
-  <ion-content class="padding"  style="height:100%;background: #f1f1f1;">
+  <ion-content style="height:100%;background: #f1f1f1;">
          		  <ion-refresher
 				    pulling-text="Puxe para atualizar!"
 				    pulling-icon="ion-arrow-down-c"
@@ -40,7 +40,7 @@
 				<div class="ion-clipboard" style="font-size: 100px;"></div>
 				<div style="font-size: 20px;">Nenhuma falta!</div>
 			  </div>
-     <div class="list" style="max-width:400px;padding: 20px 15px;" >
+     <div class="list" style="max-width:400px;padding: 5% 2%;" >
 	  	<div ng-repeat="falta in dto.data" ng-model="dto" >
 	  		<div class="card backgroundInstitution2 padding" style="font-size: 20px;margin: 1px;color:rgb(11, 101, 102) !important;">
 			  		{{falta.cadeira.nome}}
@@ -76,7 +76,8 @@
   		</div>
 	</div>
 	<br/>
-	<br/>
+    <br/>
+    <br/>
 	</div>
   	</ion-content>
 </ion-view>
